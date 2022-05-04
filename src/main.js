@@ -30,6 +30,8 @@ export function getIdCalendar() {
   return queryString.get("idCalendar");
 }
 
+export var participant = "";
+
 new Vue({
   vuetify,
   render: h => h(App)
