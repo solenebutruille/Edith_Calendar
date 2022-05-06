@@ -22,8 +22,13 @@
             <v-icon small> mdi-chevron-right </v-icon>
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">
-            {{ $refs.calendar.title }}
+            <small style="font-size: 15px;">{{ $refs.calendar.title }}</small>
+            <b style="font-size: 1.5rem !important;">{{ $refs.calendar.title }}</b>
           </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <div class="font-weight-bold font-weight-medium">
+            Wimereux 2020
+          </div>
         </v-toolbar>
       </v-sheet>
       <v-sheet height="600">
@@ -34,6 +39,7 @@
           :events="events"
           :event-color="getEventColor"
           :type="type"
+          :weekdays="weekdays"
           @click:event="showEvent"
           @click:date="addEvent"
         ></v-calendar>
@@ -53,17 +59,27 @@
 <script>
   import ModalAddEvent from './ModalAddEvent';
   import ModalWrongParticipant from './ModalWrongParticipant';
-  import { db, getIdCalendar } from "../main.js";
   import { getDocs, collection } from "firebase/firestore";
-  import { getParticipants, getSelectedParticipant } from "./ParticipantEvenement";
+  import { db, getIdCalendar, participants, selectedParticipant } from "../main.js";
 
   const idCalendar = getIdCalendar();
   const events = [];
+  const calendarName = getCalendarName();
+
+  async function getCalendarName(idCalendar){
+    //faire une conditionnelle qui recuperer que infoscalendrier
+    const querySnapshot = await getDocs(collection(db, idCalendar));
+    var calendarName = "";
+    querySnapshot.forEach((item) => {
+      const data = doc.data();
+      calendarName = item.name;
+    });
+    return calendarName;
+  }
 
   export async function loadEvents () {
 
     events.splice(0, events.length);
-    const participants = await getParticipants();
     const querySnapshot = await getDocs(collection(db, idCalendar));
 
     querySnapshot.forEach((doc) => {
@@ -73,6 +89,8 @@
 
       for (var prop in data) {
         if(prop.includes("id")){
+          var index = events.findIndex(x => x.id==prop);
+          index === -1 ?
           events.push({
             name: data[prop].title,
             start: new Date(data[prop].startDate.seconds*1000),
@@ -81,7 +99,7 @@
             timed: false,
             id: prop,
             participant: participant,
-          });
+          }) : events[index].color = color;
         }
       }
     });
@@ -89,7 +107,6 @@
 
   export default {
     data() {
-      loadEvents();
       return {
           modalData: {
             dates: [new Date()],
@@ -112,6 +129,7 @@
           selectedElement: null,
           selectedOpen: false,
           events: events,
+          weekdays: "1,2,3,4,5,6,0"
       }
     },
     components: {
@@ -132,20 +150,18 @@
         this.$refs.calendar.next()
       },
       addEvent({ date }){
-        const participant = getSelectedParticipant();
-
+        if ( ! this.verifyParticipant(null, selectedParticipant, true)) return;
         this.modalData.dates = [date];
         this.modalData.startDate = date;
         this.modalData.endDate = null;
         this.modalData.title = "";
         this.modalData.newEvent = true;
-        this.modalData.color = participant.color;
-        this.modalData.participant = participant.title;
+        this.modalData.color = selectedParticipant.color;
+        this.modalData.participant = selectedParticipant.title;
         this.showModalEvent = true;
       },
       showEvent ({ event }) {
-        const participant = getSelectedParticipant();
-        if ( ! this.verifyParticipant(event.participant.title, participant.title))
+        if ( ! this.verifyParticipant(event.participant, selectedParticipant, false))
           return;
         const isoStartDate = event.start.toISOString();
         const isoEndDate = event.end.toISOString();
@@ -157,9 +173,17 @@
         this.modalData.color = event.color;
         this.modalData.participant = event.participant;
       },
-      verifyParticipant(targetParticipant, currentParticipant){
-        if (targetParticipant !== currentParticipant) {
-          this.modalWrongParticipant.errorMessage = "To edit the event, " + targetParticipant + " must be selected, not " + currentParticipant;
+      verifyParticipant(targetParticipant, currentParticipant, addition){
+        if(addition){
+          if(!currentParticipant || !currentParticipant.title) {
+            this.modalWrongParticipant.errorMessage = "Selected participant is not valid to create event.";
+            this.showModalWrongParticipant = true;
+            return false;
+          }
+          else return true;
+        }
+        if (!targetParticipant || !currentParticipant || targetParticipant.title !== currentParticipant.title) {
+          this.modalWrongParticipant.errorMessage = "To edit the event, " + targetParticipant.title + " must be selected.";
           this.showModalWrongParticipant = true;
           return false;
         } else return true;

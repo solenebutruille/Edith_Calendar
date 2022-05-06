@@ -1,14 +1,18 @@
 <template>
-  <v-app>
+  <v-app v-resize="onResize">
     <v-main>
       <BarItem/>
+      <v-lazy v-model="isActive" >
+        <ParticipantEvenementMobile v-if="windowSize.width <= 600"/>
+      </v-lazy>
       <v-row
-        class="pa-6 ma-2 mx-lg-auto"
+        class="pa-0 ml-1 mr-1"
         align="center"
-        justify="space-around"
       >
         <CalendarItem/>
-        <ParticipantEvenement/>
+        <v-lazy v-model="isActive" >
+          <ParticipantEvenement v-if="windowSize.width > 600"/>
+        </v-lazy>
       </v-row>
     </v-main>
   </v-app>
@@ -18,18 +22,31 @@
 import CalendarItem from './components/CalendarItem';
 import BarItem from './components/BarItem';
 import ParticipantEvenement from './components/ParticipantEvenement';
+import ParticipantEvenementMobile from './components/ParticipantEvenementMobile';
 
 export default {
   name: 'App',
-
   components: {
     CalendarItem,
     BarItem,
     ParticipantEvenement,
+    ParticipantEvenementMobile,
   },
-
+  methods: {
+    onResize() {
+      this.windowSize = { width: window.innerWidth, height: window.innerHeight };
+    },
+  },
+  mounted() {
+    this.onResize();
+  },
   data: () => ({
-    //
+    isActive: false,
+    windowSize: {
+      width: 0,
+      height: 0,
+    },
   }),
 };
+
 </script>

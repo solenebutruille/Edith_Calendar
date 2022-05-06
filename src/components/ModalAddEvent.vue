@@ -95,10 +95,9 @@
 </template>
 
 <script>
-  import { db, getIdCalendar } from "../main.js";
+  import { db, getIdCalendar, selectedParticipant } from "../main.js";
   import { doc, setDoc, Timestamp, updateDoc, deleteField } from "firebase/firestore";
-  import { loadEvents } from "./CalendarItem"
-  import { getSelectedParticipant } from "./ParticipantEvenement";
+  import { loadEvents } from "./CalendarItem";
 
   const idCalendar = getIdCalendar();
 
@@ -126,7 +125,7 @@
     },
     methods: {
       async createEvent () {
-        const participant = getSelectedParticipant().title;
+        const participant = selectedParticipant.title;
         const idEvent = "id" + Date.now();
         var eventData = {};
 
@@ -141,7 +140,7 @@
         this.show = false;
       },
       async removeEvent(){
-          const participant = getSelectedParticipant().title;
+          const participant = selectedParticipant.title;
           const participantRef = doc(db, idCalendar, participant);
           var removeData = {};
           removeData[this.field.id] = deleteField();
@@ -150,7 +149,7 @@
           this.show = false;
       },
       async updateEvent(){
-        const participant = getSelectedParticipant().title;
+        const participant = selectedParticipant.title;
         const participantRef = doc(db, idCalendar, participant);
         var updateData = {};
         updateData[this.field.id] = {

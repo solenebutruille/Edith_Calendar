@@ -1,4 +1,4 @@
-# pleeease
+# Edith Calendar
 
 ## Project setup
 ```
