@@ -3,7 +3,7 @@
     <v-main>
       <BarItem/>
       <v-lazy v-model="isActive" >
-        <ParticipantEvenementMobile v-if="windowSize.width <= 600"/>
+        <ParticipantEvenementMobile v-if="windowSize.width <= 650"/>
       </v-lazy>
       <v-row
         class="pa-0 ml-1 mr-1"
@@ -11,7 +11,7 @@
       >
         <CalendarItem/>
         <v-lazy v-model="isActive" >
-          <ParticipantEvenement v-if="windowSize.width > 600"/>
+          <ParticipantEvenement v-if="windowSize.width > 650"/>
         </v-lazy>
       </v-row>
     </v-main>

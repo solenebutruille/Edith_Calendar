@@ -1,7 +1,7 @@
 <template>
   <v-card
    class="ml-2"
-    min-height="600"
+    min-height="660"
   >
     <v-toolbar
       color="indigo"
@@ -46,7 +46,7 @@
         </v-card>
       </v-dialog>
     </v-toolbar>
-    <v-list style = "height:500px; width: 250px; overflow-y:auto; overflow-x:auto;">
+    <v-list style = "height:600px; width: 250px; overflow-y:auto; overflow-x:auto;">
       <v-list-item-group
         v-model="selectedItem"
         color="primary"

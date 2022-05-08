@@ -1,4 +1,4 @@
-# Edith Calendar
+# Edith_Calendar
 
 ## Project setup
 ```

@@ -32,10 +32,12 @@
         participants.splice(0, participants.length);
         const querySnapshot = await getDocs(collection(db, idCalendar));
         querySnapshot.forEach((item) => {
-          participants.push({
-            title: item.id,
-            color: colors[this.rnd(0, colors.length - 1)],
-          });
+          if(item.id !== "calendarInfo"){
+            participants.push({
+              title: item.id,
+              color: colors[this.rnd(0, colors.length - 1)],
+            });
+          }
         });
         setSelectedParticipant(participants[0]);
         loadEvents();
