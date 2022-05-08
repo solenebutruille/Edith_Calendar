@@ -1,28 +1,23 @@
 <template>
   <div class="text-center">
-    <v-dialog
-       transition="dialog-top-transition"
-       max-width="600"
-       v-model="show"
-     >
-       <template v-slot:default="dialog">
-         <v-card>
-           <v-alert
-             dense
-             outlined
-             type="error"
-           >
-            {{ field.errorMessage }}
-           </v-alert>
-           <v-card-actions class="justify-end">
-             <v-btn
-               color="primary"
-               @click="dialog.value = false"
-             >Close</v-btn>
-           </v-card-actions>
-         </v-card>
-       </template>
-     </v-dialog>
+    <v-snackbar
+      v-model="show"
+      :timeout="3000"
+      tile
+      color="red accent-2"
+    >
+      {{ field.errorMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="black"
+          text
+          v-bind="attrs"
+          @click="show = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
