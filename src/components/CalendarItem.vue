@@ -1,7 +1,7 @@
 <template>
-  <v-row class="fill-height">
+  <v-row>
     <v-col>
-      <v-sheet height="64">
+      <v-sheet>
         <v-toolbar flat >
           <v-btn
             fab
@@ -23,11 +23,10 @@
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">
             <small style="font-size: 15px;">{{ $refs.calendar.title }}</small>
-            <b style="font-size: 1.5rem !important;">{{ $refs.calendar.title }}</b>
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <div class="font-weight-bold font-weight-medium">
-            Wimereux 2020
+          <div class="font-weight-bold font-weight-medium" style="font-size: 20px;">
+            {{ calendarName }}
           </div>
         </v-toolbar>
       </v-sheet>
@@ -64,18 +63,6 @@
 
   const idCalendar = getIdCalendar();
   const events = [];
-  const calendarName = getCalendarName();
-
-  async function getCalendarName(idCalendar){
-    //faire une conditionnelle qui recuperer que infoscalendrier
-    const querySnapshot = await getDocs(collection(db, idCalendar));
-    var calendarName = "";
-    querySnapshot.forEach((item) => {
-      const data = doc.data();
-      calendarName = item.name;
-    });
-    return calendarName;
-  }
 
   export async function loadEvents () {
 
@@ -85,7 +72,7 @@
     querySnapshot.forEach((doc) => {
       const data = doc.data();
       const participant = participants.find((part) => part.title == doc.id);
-      const color = participant.color;
+      const color = participant ? participant.color : "";
 
       for (var prop in data) {
         if(prop.includes("id")){
@@ -107,6 +94,7 @@
 
   export default {
     data() {
+      this.getCalendarName(idCalendar);
       return {
           modalData: {
             dates: [new Date()],
@@ -129,7 +117,8 @@
           selectedElement: null,
           selectedOpen: false,
           events: events,
-          weekdays: "1,2,3,4,5,6,0"
+          weekdays: "1,2,3,4,5,6,0",
+          calendarName: "",
       }
     },
     components: {
@@ -188,6 +177,15 @@
           return false;
         } else return true;
       },
+      async getCalendarName(idCalendar){
+          const querySnapshot = await getDocs(collection(db, idCalendar));
+          querySnapshot.forEach((doc) => {
+            if(doc.id === "calendarInfo"){
+              const data = doc.data();
+              this.calendarName = data.name;
+            }
+          });
+      }
     },
   }
 </script>

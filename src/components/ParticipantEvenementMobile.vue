@@ -4,9 +4,9 @@
   >
     <v-list>
       <v-list-group
-        :value="false"
         prepend-icon="mdi-account-circle"
         no-action
+        v-model="listOpen"
       >
         <template v-slot:activator>
           <v-list-item-title>Participants</v-list-item-title>
@@ -19,7 +19,7 @@
           >
           <template v-for="(item, index) in items">
             <v-hover :key="item.title" v-slot:default="{ hover }">
-              <v-list-item :key="item.title">
+              <v-list-item :key="item.title"  @click="listOpen = false">
                 <v-list-item-icon>
                   <v-icon :color="item.color"> mdi-circle </v-icon>
                 </v-list-item-icon>
@@ -107,10 +107,12 @@
           participants.splice(0, participants.length);
           const querySnapshot = await getDocs(collection(db, idCalendar));
           querySnapshot.forEach((item) => {
-            participants.push({
-              title: item.id,
-              color: colors[this.rnd(0, colors.length - 1)],
-            });
+            if(item.id !== "calendarInfo"){
+              participants.push({
+                title: item.id,
+                color: colors[this.rnd(0, colors.length - 1)],
+              });
+            }
           });
           setSelectedParticipant(participants[0]);
           loadEvents();
@@ -121,6 +123,7 @@
       data () {
         this.loadParticipants(idCalendar);
         return {
+          listOpen: false,
           addingName: "",
           selectedItem: 0,
           items: participants,
