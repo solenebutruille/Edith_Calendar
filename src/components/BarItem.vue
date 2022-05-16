@@ -11,64 +11,60 @@
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showMyCalendars = true"
     >
       <v-icon>mdi-calendar</v-icon>
     </v-btn>
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showImportCalendar = true"
     >
       <v-icon>mdi-import</v-icon>
     </v-btn>
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showNewCalendarDialog = true"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showShareCalendar = true"
     >
       <v-icon>mdi-share</v-icon>
     </v-btn>
-
-    <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Sorry ...
-        </v-card-title>
-
-          <v-spacer></v-spacer>
-        <v-card-text>
-          This functionnality is coming soon
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <NewCalendarDialog
+      v-model="showNewCalendarDialog"
+    > </NewCalendarDialog>
+    <ShareCalendarDialog
+      v-model="showShareCalendar"
+    > </ShareCalendarDialog>
+    <ImportCalendarDialog
+      v-model="showImportCalendar"
+    > </ImportCalendarDialog>
   </v-row>
 </template>
 
 <script type="text/javascript">
+
+  import NewCalendarDialog from './dialogs/NewCalendarDialog';
+  import ShareCalendarDialog from './dialogs/ShareCalendarDialog';
+  import ImportCalendarDialog from './dialogs/ImportCalendarDialog';
+
   export default {
+    components: {
+      NewCalendarDialog,
+      ShareCalendarDialog,
+      ImportCalendarDialog,
+    },
     data: () => ({
-      dialog: false,
+      showNewCalendarDialog: false,
+      showMyCalendars: false,
+      showShareCalendar: false,
+      showImportCalendar: false,
     })
   };
 

@@ -79,7 +79,10 @@
     import { loadEvents } from "../components/CalendarItem"
 
     const idCalendar = getIdCalendar();
-    const colors = ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'];
+    const colors = ['red', 'pink', 'purple', 'blue', 'indigo', 'deep-purple',
+                    'cyan', 'green', 'orange', 'teal', 'light-blue',
+                  'green', 'light-green', 'lime', 'yellow', 'amber',
+                  'deep-orange', 'brown', 'blue-grey'];
 
     export default {
       methods: {
@@ -105,19 +108,23 @@
         },
         async loadParticipants(idCalendar){
           participants.splice(0, participants.length);
+
+          var colorsClone = [...colors];
+          colorsClone.sort(() => Math.random() - 0.5);
+
           const querySnapshot = await getDocs(collection(db, idCalendar));
           querySnapshot.forEach((item) => {
             if(item.id !== "calendarInfo"){
+              if(!colorsClone.length) colorsClone = [...colors];
+              var color =  colorsClone.pop()
               participants.push({
                 title: item.id,
-                color: colors[this.rnd(0, colors.length - 1)],
+                color: color,
               });
             }
           });
           setSelectedParticipant(participants[0]);
           loadEvents();
-        }, rnd (a, b) {
-          return Math.floor((b - a + 1) * Math.random()) + a
         },
       },
       data () {

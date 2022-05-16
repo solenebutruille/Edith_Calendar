@@ -1,17 +1,20 @@
-- HP dans participantsEvenements enlever toutes les tailles harcode
-- HP BUG Cannot read properties of undefined (reading 'color') CalendarItem
+- HP implementer mes calendriers
+- HP implementer charger un calendrier
+- HP faire les criteres PWA
+- HP se pencher sur la sécurité firebase
+- HP mettre dans la page d'acceuil les liens et mettre des trucs on hover
 
-- MP fermer le datepicker quand yen a 2 selectionnees
 - MP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
+- MP si + de  2 evenements faire en sorte de pouvoir voir les autres
 
+- LP fermer le datepicker quand yen a 2 selectionnees
+- LP afficher les evenement avec leur couleur
+- LP mettre les heures en options
 - LP faire le hors-ligne
 - LP faire les notifs
-- MP implementer les boutons du haut
-- MP mettre les heures
-- LP embellir les perticipants
-- LP mettre les criteres PWA
 - LP ecrire tous les tests
-- LP afficher les evenement avec leur couleur
-
-class="fill-height"
-style = "height:500px; width: 250px; overflow-y:auto; overflow-x:auto;"
+- LP sur portable on voit la limite de la liste participant
+- LP enlever l'horrible dedoublement de code entre praticipant et participantmobile
+- LP embellir la page d'accueil
+- LP faire un share avec les options du telephone
+- LP dans participantsEvenements enlever toutes les tailles harcode (faire  des tests sur grand ecran avec ces dimensions)
