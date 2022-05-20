@@ -41,7 +41,7 @@
         querySnapshot.forEach((item) => {
           if(item.id !== "calendarInfo"){
             if(!colorsClone.length) colorsClone = [...colors];
-            var color =  colorsClone.pop()
+            var color =  colorsClone.pop();
             participants.push({
               title: item.id,
               color: color,

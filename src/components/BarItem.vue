@@ -45,6 +45,9 @@
     <ImportCalendarDialog
       v-model="showImportCalendar"
     > </ImportCalendarDialog>
+    <MyCalendarsDialog
+      v-model="showMyCalendars"
+    > </MyCalendarsDialog>
   </v-row>
 </template>
 
@@ -53,12 +56,14 @@
   import NewCalendarDialog from './dialogs/NewCalendarDialog';
   import ShareCalendarDialog from './dialogs/ShareCalendarDialog';
   import ImportCalendarDialog from './dialogs/ImportCalendarDialog';
+  import MyCalendarsDialog from './dialogs/MyCalendarsDialog';
 
   export default {
     components: {
       NewCalendarDialog,
       ShareCalendarDialog,
       ImportCalendarDialog,
+      MyCalendarsDialog,
     },
     data: () => ({
       showNewCalendarDialog: false,

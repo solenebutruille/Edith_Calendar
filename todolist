@@ -1,8 +1,10 @@
 - HP implementer mes calendriers
-- HP implementer charger un calendrier
+- HP ajouter une erreur joli si besoin dans charger un calendrier
+- HP quand on import un calendar on va stocker aussi son nom qu'on recupere dans la bdd
 - HP faire les criteres PWA
 - HP se pencher sur la sécurité firebase
 - HP mettre dans la page d'acceuil les liens et mettre des trucs on hover
+- HP mettre un joli truc quand t'as pas de calendrier pour que t'en créé un
 
 - MP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
 - MP si + de  2 evenements faire en sorte de pouvoir voir les autres
