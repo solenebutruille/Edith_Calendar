@@ -105,12 +105,14 @@
         },
         async loadParticipants(idCalendar){
           participants.splice(0, participants.length);
+          var colorsParticipants = colors.slice();
           const querySnapshot = await getDocs(collection(db, idCalendar));
           querySnapshot.forEach((item) => {
+            if(colorsParticipants.length == 0) colorsParticipants = colors.slice();
             if(item.id !== "calendarInfo"){
               participants.push({
                 title: item.id,
-                color: colors[this.rnd(0, colors.length - 1)],
+                color: colorsParticipants.splice(this.rnd(0, colorsParticipants.length - 1), 1)[0],
               });
             }
           });

@@ -15,3 +15,7 @@
 
 class="fill-height"
 style = "height:500px; width: 250px; overflow-y:auto; overflow-x:auto;"
+
+New priorities :
+- ajouter un titre
+_ faire que 2 utilisateurs peuvent pas avoir la meme couleur

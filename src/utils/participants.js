@@ -4,7 +4,7 @@
   import { loadEvents } from "../components/CalendarItem"
 
   const idCalendar = getIdCalendar();
-  const colors = ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'];
+  const colors = ['blue', 'indigo', 'yellow', 'green', 'orange', 'grey', "red", 'black'];
 
   export default {
     methods: {
@@ -30,12 +30,14 @@
       },
       async loadParticipants(idCalendar){
         participants.splice(0, participants.length);
+        var colorsParticipants = colors.slice();
         const querySnapshot = await getDocs(collection(db, idCalendar));
         querySnapshot.forEach((item) => {
+          if(colorsParticipants.length == 0) colorsParticipants = colors.slice();
           if(item.id !== "calendarInfo"){
             participants.push({
               title: item.id,
-              color: colors[this.rnd(0, colors.length - 1)],
+              color: colorsParticipants.splice(this.rnd(0, colorsParticipants.length - 1), 1)[0],
             });
           }
         });
@@ -43,7 +45,7 @@
         loadEvents();
       }, rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
-      },
+      }
     },
     data () {
       this.loadParticipants(idCalendar);
