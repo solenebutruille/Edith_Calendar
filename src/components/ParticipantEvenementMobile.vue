@@ -18,7 +18,6 @@
             @change="updateSelectedParticipant($event)"
           >
           <template v-for="(item, index) in items">
-            <v-hover :key="item.title" v-slot:default="{ hover }">
               <v-list-item :key="item.title"  @click="listOpen = false">
                 <v-list-item-icon>
                   <v-icon :color="item.color"> mdi-circle </v-icon>
@@ -31,13 +30,11 @@
                 <v-btn
                   icon
                   color="red"
-                  v-show="hover"
                    @click="removeParticipant(item.title)"
                 >
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
               </v-list-item>
-            </v-hover>
             <v-divider v-if="index + 1 < items.length" :key="index"></v-divider>
           </template>
           <v-hover
