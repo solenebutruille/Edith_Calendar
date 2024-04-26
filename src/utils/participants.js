@@ -4,7 +4,7 @@
   import { loadEvents } from "../components/CalendarItem"
 
   const idCalendar = getIdCalendar();
-  const colors = ['blue', 'indigo', 'yellow', 'green', 'orange', 'grey', "red", 'black'];
+  const colors = ['blue', 'indigo', 'green', 'orange', 'grey', "red"];
 
   export default {
     methods: {

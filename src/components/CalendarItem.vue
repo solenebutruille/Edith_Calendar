@@ -35,6 +35,7 @@
           ref="calendar"
           v-model="focus"
           color="primary"
+          :event-more="eventMore"
           :events="events"
           :event-color="getEventColor"
           :type="type"
@@ -116,6 +117,7 @@
           selectedEvent: {},
           selectedElement: null,
           selectedOpen: false,
+          eventMore: false,
           events: events,
           weekdays: "1,2,3,4,5,6,0",
           calendarName: "",

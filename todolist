@@ -2,8 +2,7 @@
 - HP BUG Cannot read properties of undefined (reading 'color') CalendarItem
 
 - MP fermer le datepicker quand yen a 2 selectionnees
-- MP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
-
+- LP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
 - LP faire le hors-ligne
 - LP faire les notifs
 - MP implementer les boutons du haut
@@ -17,5 +16,7 @@ class="fill-height"
 style = "height:500px; width: 250px; overflow-y:auto; overflow-x:auto;"
 
 New priorities :
-- ajouter un titre
-_ faire que 2 utilisateurs peuvent pas avoir la meme couleur
+- faire que si plus de 2 evenements on puisse voir quand meme : faire que quand on click sur more ca passe a la vue semaine en focus sur la date ?
+- enable creation of calendar
+- when getting on the page if no calendar selected default to creation
+- refactor code
