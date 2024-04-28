@@ -41,7 +41,6 @@
           :type="type"
           :weekdays="weekdays"
           @click:event="showEvent"
-          @click:day="addEvent"
           @click:date="addEvent"
         ></v-calendar>
       </v-sheet>
