@@ -30,6 +30,8 @@ export function getIdCalendar() {
   return queryString.get("idCalendar");
 }
 
+export const colors = ['blue', 'indigo', 'green', 'orange', 'grey', "red"];
+
 export var selectedParticipant = {};
 export function setSelectedParticipant(item) { selectedParticipant = item; }
 export const participants = [];

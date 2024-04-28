@@ -71,12 +71,11 @@
 <script>
 
 
-    import { db, getIdCalendar, participants, setSelectedParticipant } from "../main.js";
+    import { db, getIdCalendar, participants, setSelectedParticipant, colors } from "../main.js";
     import { collection, doc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
     import { loadEvents } from "../components/CalendarItem"
 
     const idCalendar = getIdCalendar();
-    const colors = ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'];
 
     export default {
       methods: {
