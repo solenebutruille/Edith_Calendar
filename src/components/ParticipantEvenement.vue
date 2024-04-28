@@ -80,5 +80,4 @@
   </v-card>
 </template>
 
-<script src="../utils/participants">
-</script>
+<script src="../utils/participants" />

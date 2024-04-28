@@ -44,21 +44,21 @@
           @click:date="addEvent"
         ></v-calendar>
       </v-sheet>
-      <ModalAddEvent
+      <AddEventModal
         v-model="showModalEvent"
         :fields="modalData"
-     > </ModalAddEvent>
-     <ModalWrongParticipant
+     > </AddEventModal>
+     <WrongParticipantSelectedModal
        v-model="showModalWrongParticipant"
        :fields="modalWrongParticipant"
-    > </ModalWrongParticipant>
+    > </WrongParticipantSelectedModal>
     </v-col>
   </v-row>
 </template>
 
 <script>
-  import ModalAddEvent from './ModalAddEvent';
-  import ModalWrongParticipant from './ModalWrongParticipant';
+  import AddEventModal from './Modals/AddEventModal';
+  import WrongParticipantSelectedModal from './Modals/WrongParticipantSelectedModal';
   import { getDocs, collection } from "firebase/firestore";
   import { db, getIdCalendar, participants, selectedParticipant } from "../main.js";
 
@@ -124,8 +124,8 @@
       }
     },
     components: {
-      ModalAddEvent,
-      ModalWrongParticipant,
+      AddEventModal,
+      WrongParticipantSelectedModal,
     },
     mounted () {
       this.$refs.calendar.checkChange()
