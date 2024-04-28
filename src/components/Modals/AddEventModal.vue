@@ -95,9 +95,9 @@
 </template>
 
 <script>
-  import { db, getIdCalendar, selectedParticipant } from "../main.js";
+  import { db, getIdCalendar, selectedParticipant } from "../../main.js";
   import { doc, setDoc, Timestamp, updateDoc, deleteField } from "firebase/firestore";
-  import { loadEvents } from "./CalendarItem";
+  import { loadEvents } from "../CalendarItem";
 
   const idCalendar = getIdCalendar();
 

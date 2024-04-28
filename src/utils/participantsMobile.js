@@ -7,10 +7,10 @@ const idCalendar = getIdCalendar();
 export default {
   methods: {
     async addParticipant () {
+      if(!this.addingName) return;
       await setDoc(doc(collection(db, idCalendar), this.addingName), {
         name: this.addingName,
       });
-      this.dialog = false;
       this.addingName = "";
       this.loadParticipants(idCalendar);
       loadEvents();
@@ -41,13 +41,13 @@ export default {
       });
       setSelectedParticipant(participants[0]);
       loadEvents();
-    }
+    },
   },
   data () {
     this.loadParticipants(idCalendar);
     return {
+      listOpen: false,
       addingName: "",
-      dialog: false,
       selectedItem: 0,
       items: participants,
     }

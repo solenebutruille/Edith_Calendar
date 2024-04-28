@@ -29,7 +29,9 @@ export function getIdCalendar() {
   let queryString = new URLSearchParams(paramString);
   return queryString.get("idCalendar");
 }
-
+export function  rnd (a, b) {
+  return Math.floor((b - a + 1) * Math.random()) + a;
+}
 export const colors = ['blue', 'indigo', 'green', 'orange', 'grey', "red"];
 
 export var selectedParticipant = {};
