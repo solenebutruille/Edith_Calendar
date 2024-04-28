@@ -117,7 +117,6 @@
         valid: true,
         field: this.fields,
         menu: false,
-        eventTitle: "",
       }
     },
     created() {
@@ -130,7 +129,7 @@
         var eventData = {};
 
         eventData[idEvent] = {
-          title: this.eventTitle,
+          title: this.field.title,
           startDate: Timestamp.fromDate(new Date(this.field.dates[0])),
           endDate: this.field.dates[1] ? Timestamp.fromDate(new Date(this.field.dates[1])) : null,
         };
@@ -153,7 +152,7 @@
         const participantRef = doc(db, idCalendar, participant);
         var updateData = {};
         updateData[this.field.id] = {
-          title: this.eventTitle,
+          title: this.field.title,
           startDate: Timestamp.fromDate(new Date(this.field.dates[0])),
           endDate: this.field.dates[1] ? Timestamp.fromDate(new Date(this.field.dates[1])) : null,
         };
@@ -162,7 +161,7 @@
         this.show = false;
       },
       updateTheVariable(value){
-         this.eventTitle = value;
+         this.field.title = value;
       },
       onChangeDate(){
         this.field.dates.sort();
