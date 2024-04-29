@@ -1,6 +1,7 @@
-import { db, getIdCalendar, participants, setSelectedParticipant, colors, rnd } from "../main.js";
-import { collection, doc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
-import { loadEvents } from "../components/CalendarItem"
+import { db, getIdCalendar } from "../main.js";
+import { collection, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { loadParticipants, getParticipantsByIndex, getParticipants, setSelectedParticipant } from "../models/participants.js";
+import { loadEvents } from "../models/events.js"
 
 const idCalendar = getIdCalendar();
 
@@ -12,44 +13,28 @@ export default {
       });
       this.dialog = false;
       this.addingName = "";
-      this.loadParticipants(idCalendar);
+      loadParticipants();
       loadEvents();
     },
     async removeParticipant(participant) {
       await deleteDoc(doc(collection(db, idCalendar), participant));
-      this.loadParticipants(idCalendar);
+      loadParticipants(idCalendar);
       loadEvents();
     },
     updateName(value){
        this.addingName = value;
     },
     updateSelectedParticipant(value){
-      setSelectedParticipant(participants[value]);
-    },
-    async loadParticipants(idCalendar){
-      participants.splice(0, participants.length);
-      var colorsParticipants = colors.slice();
-      const querySnapshot = await getDocs(collection(db, idCalendar));
-      querySnapshot.forEach((item) => {
-        if(colorsParticipants.length == 0) colorsParticipants = colors.slice();
-        if(item.id !== "calendarInfo"){
-          participants.push({
-            title: item.id,
-            color: colorsParticipants.splice(rnd(0, colorsParticipants.length - 1), 1)[0],
-          });
-        }
-      });
-      setSelectedParticipant(participants[0]);
-      loadEvents();
+      setSelectedParticipant(getParticipantsByIndex(value));
     }
   },
   data () {
-    this.loadParticipants(idCalendar);
+    loadParticipants();
     return {
       addingName: "",
       dialog: false,
       selectedItem: 0,
-      items: participants,
+      items: getParticipants(),
     }
   },
 }
