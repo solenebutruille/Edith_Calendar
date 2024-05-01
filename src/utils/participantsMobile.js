@@ -1,39 +1,38 @@
-import { db, getIdCalendar } from "../main.js";
-import { collection, doc, setDoc, deleteDoc } from "firebase/firestore";
-import { loadParticipants, getParticipantsByIndex, getParticipants, setSelectedParticipant } from "../models/participants.js";
+import { loadParticipants, getParticipants, setSelectedParticipant, addParticipant, getSelectedParticipantIndex } from "../models/participants.js";
 import { loadEvents } from "../models/events.js";
-
-const idCalendar = getIdCalendar();
+import ConfirmParticipantDeleteModal from "../components/Modals/ConfirmParticipantDeleteModal";
 
 export default {
+  components: {
+    ConfirmParticipantDeleteModal
+  },
   methods: {
     async addParticipant () {
       if(!this.addingName) return;
-      await setDoc(doc(collection(db, idCalendar), this.addingName), {
-        name: this.addingName,
-      });
+      addParticipant(this.addingName);
       this.addingName = "";
       loadParticipants();
       loadEvents();
     },
     async removeParticipant(participant) {
-      await deleteDoc(doc(collection(db, idCalendar), participant));
-      loadParticipants();
-      loadEvents();
+      this.showModalEvent = true;
+      this.participantToDelete = participant;
     },
     updateName(value){
        this.addingName = value;
     },
     updateSelectedParticipant(value){
-      setSelectedParticipant(getParticipantsByIndex(value));
+      setSelectedParticipant(value);
     }
   },
   data () {
     loadParticipants();
     return {
+      participantToDelete: undefined,
+      showModalEvent: false,
       listOpen: false,
       addingName: "",
-      selectedItem: 0,
+      selectedItem: getSelectedParticipantIndex(),
       items: getParticipants(),
     }
   },

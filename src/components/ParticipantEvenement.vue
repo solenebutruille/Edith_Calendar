@@ -1,12 +1,10 @@
 <template>
-  <v-card
-   class="ml-2"
-    min-height="660"
-  >
-    <v-toolbar
-      color="indigo"
-      dark
-    >
+  <v-card class="ml-2" min-height="660">
+    <ConfirmParticipantDeleteModal
+      v-model="showModalEvent"
+      :participantToDelete="participantToDelete"
+    > </ConfirmParticipantDeleteModal>
+    <v-toolbar color="indigo" dark>
       <v-toolbar-title>Participants</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn

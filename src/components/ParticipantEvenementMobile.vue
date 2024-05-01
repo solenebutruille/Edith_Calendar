@@ -2,6 +2,10 @@
   <v-card
     class="mx-auto"
   >
+  <ConfirmParticipantDeleteModal
+    v-model="showModalEvent"
+    :participantToDelete="participantToDelete"
+  > </ConfirmParticipantDeleteModal>
     <v-list>
       <v-list-group
         prepend-icon="mdi-account-circle"

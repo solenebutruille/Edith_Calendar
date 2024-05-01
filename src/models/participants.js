@@ -1,25 +1,38 @@
 import { db, getIdCalendar, colors, rnd } from "../main.js";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { loadEvents } from "../models/events.js";
 
 const idCalendar = getIdCalendar();
 const participants = [];
-var selectedParticipant = {};
+export var selectedParticipantIndex = undefined;
 
-export function setSelectedParticipant(item) {
-  selectedParticipant = item;
+
+export function setSelectedParticipant(index) {
+  selectedParticipantIndex = index;
 }
 
 export function getSelectedParticipant() {
-  return selectedParticipant;
+  return participants[selectedParticipantIndex];
+}
+
+export function getSelectedParticipantIndex() {
+  return selectedParticipantIndex;
 }
 
 export function getParticipants(){
   return participants;
 }
 
-export function getParticipantsByIndex(index){
-  return participants[index];
+export async function addParticipant(name){
+  await setDoc(doc(collection(db, idCalendar), name), {
+    name: name,
+  });
+}
+
+export async function deleteParticipant(participant){
+  await deleteDoc(doc(collection(db, idCalendar), participant));
+  loadEvents();
+  loadParticipants();
 }
 
 export async function loadParticipants(){
@@ -35,6 +48,7 @@ export async function loadParticipants(){
       });
     }
   });
-  setSelectedParticipant(participants[0]);
+  if(selectedParticipantIndex <  participants.length) setSelectedParticipant(selectedParticipantIndex);
+  else setSelectedParticipant(0);
   loadEvents();
 }
