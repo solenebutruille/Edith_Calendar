@@ -1,6 +1,9 @@
 <template>
   <v-app v-resize="onResize">
     <v-main>
+      <SelectParticipant
+        v-model="showModalSelectParticipant"
+     > </SelectParticipant>
       <BarItem/>
       <v-lazy v-model="isActive" >
         <ParticipantEvenementMobile v-if="windowSize.width <= 650"/>
@@ -23,6 +26,7 @@ import CalendarItem from './components/CalendarItem';
 import BarItem from './components/BarItem';
 import ParticipantEvenement from './components/ParticipantEvenement';
 import ParticipantEvenementMobile from './components/ParticipantEvenementMobile';
+import SelectParticipant from './components/Modals/SelectParticipant';
 
 export default {
   name: 'App',
@@ -31,6 +35,7 @@ export default {
     BarItem,
     ParticipantEvenement,
     ParticipantEvenementMobile,
+    SelectParticipant,
   },
   methods: {
     onResize() {
@@ -41,6 +46,7 @@ export default {
     this.onResize();
   },
   data: () => ({
+    showModalSelectParticipant: true,
     isActive: false,
     windowSize: {
       width: 0,

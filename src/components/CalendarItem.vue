@@ -60,38 +60,11 @@
   import AddEventModal from './Modals/AddEventModal';
   import WrongParticipantSelectedModal from './Modals/WrongParticipantSelectedModal';
   import { getDocs, collection } from "firebase/firestore";
-  import { db, getIdCalendar, participants, selectedParticipant } from "../main.js";
+  import { db, getIdCalendar } from "../main.js";
+  import { getSelectedParticipant } from "../models/participants.js";
+  import { getEvents } from '../models/events.js'
 
   const idCalendar = getIdCalendar();
-  const events = [];
-
-  export async function loadEvents () {
-
-    events.splice(0, events.length);
-    const querySnapshot = await getDocs(collection(db, idCalendar));
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      const participant = participants.find((part) => part.title == doc.id);
-      const color = participant ? participant.color : "";
-
-      for (var prop in data) {
-        if(prop.includes("id")){
-          var index = events.findIndex(x => x.id==prop);
-          index === -1 ?
-          events.push({
-            name: data[prop].title,
-            start: new Date(data[prop].startDate.seconds*1000),
-            end: new Date(data[prop].endDate.seconds*1000),
-            color: color,
-            timed: false,
-            id: prop,
-            participant: participant,
-          }) : events[index].color = color;
-        }
-      }
-    });
-  }
 
   export default {
     data() {
@@ -118,7 +91,7 @@
           selectedElement: null,
           selectedOpen: false,
           eventMore: false,
-          events: events,
+          events:  getEvents(),
           weekdays: "1,2,3,4,5,6,0",
           calendarName: "",
       }
@@ -141,6 +114,7 @@
         this.$refs.calendar.next()
       },
       addEvent({ date }){
+        var selectedParticipant = getSelectedParticipant();
         if ( ! this.verifyParticipant(null, selectedParticipant, true)) return;
         this.modalData.dates = [date];
         this.modalData.startDate = date;
@@ -152,7 +126,7 @@
         this.showModalEvent = true;
       },
       showEvent ({ event }) {
-        if ( ! this.verifyParticipant(event.participant, selectedParticipant, false))
+        if ( ! this.verifyParticipant(event.participant, getSelectedParticipant(), false))
           return;
         const isoStartDate = event.start.toISOString();
         const isoEndDate = event.end.toISOString();

@@ -34,10 +34,6 @@ export function  rnd (a, b) {
 }
 export const colors = ['blue', 'indigo', 'green', 'orange', 'grey', "red"];
 
-export var selectedParticipant = {};
-export function setSelectedParticipant(item) { selectedParticipant = item; }
-export const participants = [];
-
 new Vue({
   vuetify,
   render: h => h(App)

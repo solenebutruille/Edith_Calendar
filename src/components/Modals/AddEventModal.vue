@@ -13,16 +13,18 @@
           color="blue"
           dark
         >
-          <v-text-field
-              label="Title"
-              :value="field.title"
-              class="pt-6 ma-2 mx-lg-auto"
-              @input="updateTheVariable($event)"
-              :rules="[v => !!v || 'Item is required']"
-              centered
-              required
-          ></v-text-field>
+          <v-toolbar-title> Event details </v-toolbar-title>
         </v-toolbar>
+        <v-text-field
+            label="Title"
+            :value="field.title"
+            class="pt-6 ma-2 mx-lg-auto"
+            @input="updateTheVariable($event)"
+            :rules="[v => !!v || 'Item is required']"
+            style="padding-left: 5px;"
+            centered
+            required
+        ></v-text-field>
         <v-row class="pt-6 ma-2 mx-lg-auto">
           <v-menu
               v-model="menu"
@@ -95,9 +97,10 @@
 </template>
 
 <script>
-  import { db, getIdCalendar, selectedParticipant } from "../../main.js";
+  import { db, getIdCalendar } from "../../main.js";
   import { doc, setDoc, Timestamp, updateDoc, deleteField } from "firebase/firestore";
-  import { loadEvents } from "../CalendarItem";
+  import { loadEvents } from "../../models/events.js";
+  import { getSelectedParticipant } from "../../models/participants.js";
 
   const idCalendar = getIdCalendar();
 
@@ -124,7 +127,7 @@
     },
     methods: {
       async createEvent () {
-        const participant = selectedParticipant.title;
+        const participant = getSelectedParticipant().title;
         const idEvent = "id" + Date.now();
         var eventData = {};
 
@@ -139,7 +142,7 @@
         this.show = false;
       },
       async removeEvent(){
-          const participant = selectedParticipant.title;
+          const participant = getSelectedParticipant().title;
           const participantRef = doc(db, idCalendar, participant);
           var removeData = {};
           removeData[this.field.id] = deleteField();
@@ -148,7 +151,7 @@
           this.show = false;
       },
       async updateEvent(){
-        const participant = selectedParticipant.title;
+        const participant = getSelectedParticipant().title;
         const participantRef = doc(db, idCalendar, participant);
         var updateData = {};
         updateData[this.field.id] = {

@@ -1,55 +1,43 @@
-import { db, getIdCalendar, participants, setSelectedParticipant, colors, rnd } from "../main.js";
-import { collection, doc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
-import { loadEvents } from "../components/CalendarItem"
-
-const idCalendar = getIdCalendar();
+import { loadParticipants, getParticipants, setSelectedParticipant, addParticipant, getSelectedParticipantIndex } from "../models/participants.js";
+import { loadEvents } from "../models/events.js";
+import ConfirmParticipantDeleteModal from "../components/Modals/ConfirmParticipantDeleteModal";
 
 export default {
+  components: {
+    ConfirmParticipantDeleteModal
+  },
   methods: {
     async addParticipant () {
       if(!this.addingName) return;
-      await setDoc(doc(collection(db, idCalendar), this.addingName), {
-        name: this.addingName,
-      });
+      addParticipant(this.addingName);
       this.addingName = "";
-      this.loadParticipants(idCalendar);
+      this.listOpen = false;
+      loadParticipants();
       loadEvents();
     },
     async removeParticipant(participant) {
-      await deleteDoc(doc(collection(db, idCalendar), participant));
-      this.loadParticipants(idCalendar);
-      loadEvents();
+      this.showModalEvent = true;
+      this.participantToDelete = participant;
     },
     updateName(value){
        this.addingName = value;
     },
     updateSelectedParticipant(value){
-      setSelectedParticipant(participants[value]);
+      setSelectedParticipant(value);
+      this.listOpen = false;
     },
-    async loadParticipants(idCalendar){
-      participants.splice(0, participants.length);
-      var colorsParticipants = colors.slice();
-      const querySnapshot = await getDocs(collection(db, idCalendar));
-      querySnapshot.forEach((item) => {
-        if(colorsParticipants.length == 0) colorsParticipants = colors.slice();
-        if(item.id !== "calendarInfo"){
-          participants.push({
-            title: item.id,
-            color: colorsParticipants.splice(rnd(0, colorsParticipants.length - 1), 1)[0],
-          });
-        }
-      });
-      setSelectedParticipant(participants[0]);
-      loadEvents();
-    },
+    getSelectedParticipantIndex(){
+      return getSelectedParticipantIndex();
+    }
   },
   data () {
-    this.loadParticipants(idCalendar);
+    loadParticipants();
     return {
+      participantToDelete: undefined,
+      showModalEvent: false,
       listOpen: false,
       addingName: "",
-      selectedItem: 0,
-      items: participants,
+      items: getParticipants(),
     }
   },
 }
