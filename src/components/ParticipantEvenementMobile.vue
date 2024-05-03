@@ -17,12 +17,10 @@
         </template>
         <v-list>
           <v-list-item-group
-            v-model="selectedItem"
             color="primary"
-            @change="updateSelectedParticipant($event)"
           >
           <template v-for="(item, index) in items">
-              <v-list-item :key="item.title"  @click="listOpen = false">
+              <v-list-item :key="item.title"  @click="updateSelectedParticipant(index)" :class="index === getSelectedParticipantIndex(index) ? 'v-list-item--active': ''">
                 <v-list-item-icon>
                   <v-icon :color="item.color"> mdi-circle </v-icon>
                 </v-list-item-icon>
@@ -41,9 +39,6 @@
               </v-list-item>
             <v-divider v-if="index + 1 < items.length" :key="index"></v-divider>
           </template>
-          <v-hover
-            v-slot="{ hover }"
-          >
           <v-list-item>
             <v-list-item-icon>
               <v-icon color="grey darken-1"> mdi-circle </v-icon>
@@ -57,13 +52,11 @@
               <v-btn
                 icon
                 color="green"
-                v-show="hover"
                  @click="addParticipant"
               >
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
           </v-list-item>
-          </v-hover>
         </v-list-item-group>
 
       </v-list>

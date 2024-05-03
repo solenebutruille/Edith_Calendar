@@ -11,7 +11,6 @@ export default {
       addParticipant(this.addingName);
       this.dialog = false;
       this.addingName = "";
-      loadParticipants();
       loadEvents();
     },
     async removeParticipant(participant) {
@@ -23,16 +22,23 @@ export default {
     },
     updateSelectedParticipant(value){
       setSelectedParticipant(value);
+      this.forceReRender();
+    },
+    getSelectedParticipantIndex() {
+      return getSelectedParticipantIndex();
+    },
+    forceReRender() {
+      this.forceRender += 1;
     }
   },
   data () {
     loadParticipants();
     return {
+      forceRender: 0,
       participantToDelete: undefined,
       showModalEvent: false,
       addingName: "",
       dialog: false,
-      selectedItem: getSelectedParticipantIndex(),
       items: getParticipants(),
     }
   },

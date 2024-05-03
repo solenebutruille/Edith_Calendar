@@ -27,6 +27,10 @@ export async function addParticipant(name){
   await setDoc(doc(collection(db, idCalendar), name), {
     name: name,
   });
+  await loadParticipants();
+  const newParticipantIndex = participants.findIndex((part) => part.title === name);
+  setSelectedParticipant(newParticipantIndex);
+  await loadParticipants();
 }
 
 export async function deleteParticipant(participant){
@@ -48,7 +52,5 @@ export async function loadParticipants(){
       });
     }
   });
-  if(selectedParticipantIndex <  participants.length) setSelectedParticipant(selectedParticipantIndex);
-  else setSelectedParticipant(0);
   loadEvents();
 }

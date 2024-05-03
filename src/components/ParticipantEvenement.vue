@@ -46,13 +46,12 @@
     </v-toolbar>
     <v-list style = "height:600px; width: 250px; overflow-y:auto; overflow-x:auto;">
       <v-list-item-group
-        v-model="selectedItem"
         color="primary"
-        @change="updateSelectedParticipant($event)"
+        :key="forceRender"
       >
       <template v-for="(item, index) in items">
         <v-hover :key="item.title" v-slot:default="{ hover }">
-          <v-list-item :key="item.title">
+          <v-list-item :key="item.title" @click="updateSelectedParticipant(index)" :class="index === getSelectedParticipantIndex(index) ? 'v-list-item--active': ''">
             <v-list-item-icon>
               <v-icon :color="item.color"> mdi-circle </v-icon>
             </v-list-item-icon>

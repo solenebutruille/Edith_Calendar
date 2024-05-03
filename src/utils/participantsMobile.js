@@ -11,6 +11,7 @@ export default {
       if(!this.addingName) return;
       addParticipant(this.addingName);
       this.addingName = "";
+      this.listOpen = false;
       loadParticipants();
       loadEvents();
     },
@@ -23,6 +24,10 @@ export default {
     },
     updateSelectedParticipant(value){
       setSelectedParticipant(value);
+      this.listOpen = false;
+    },
+    getSelectedParticipantIndex(){
+      return getSelectedParticipantIndex();
     }
   },
   data () {
@@ -32,7 +37,6 @@ export default {
       showModalEvent: false,
       listOpen: false,
       addingName: "",
-      selectedItem: getSelectedParticipantIndex(),
       items: getParticipants(),
     }
   },

@@ -80,14 +80,13 @@
         if(!value || value === 0) return;
         setSelectedParticipant(value - 1);
         this.show = false;
+        loadParticipants();
       },
       async addParticipant () {
         if(!this.newParticipantName) return;
         addParticipant(this.newParticipantName);
         this.newParticipantName = "";
         this.show = false;
-        setSelectedParticipant(getParticipants().length);
-        loadParticipants();
       },
       updateNewParticipantName(value){
          this.newParticipantName = value;

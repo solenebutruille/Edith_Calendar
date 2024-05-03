@@ -13,16 +13,18 @@
           color="blue"
           dark
         >
-          <v-text-field
-              label="Title"
-              :value="field.title"
-              class="pt-6 ma-2 mx-lg-auto"
-              @input="updateTheVariable($event)"
-              :rules="[v => !!v || 'Item is required']"
-              centered
-              required
-          ></v-text-field>
+          <v-toolbar-title> Event details </v-toolbar-title>
         </v-toolbar>
+        <v-text-field
+            label="Title"
+            :value="field.title"
+            class="pt-6 ma-2 mx-lg-auto"
+            @input="updateTheVariable($event)"
+            :rules="[v => !!v || 'Item is required']"
+            style="padding-left: 5px;"
+            centered
+            required
+        ></v-text-field>
         <v-row class="pt-6 ma-2 mx-lg-auto">
           <v-menu
               v-model="menu"
