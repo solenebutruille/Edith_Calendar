@@ -119,7 +119,7 @@
         this.modalData.dates = [date];
         this.modalData.startDate = date;
         this.modalData.endDate = null;
-        this.modalData.title = "";
+        this.modalData.title = selectedParticipant.title;
         this.modalData.newEvent = true;
         this.modalData.color = selectedParticipant.color;
         this.modalData.participant = selectedParticipant.title;
