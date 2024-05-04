@@ -1,22 +1,15 @@
 - HP dans participantsEvenements enlever toutes les tailles harcode
-- HP BUG Cannot read properties of undefined (reading 'color') CalendarItem
-
 - MP fermer le datepicker quand yen a 2 selectionnees
 - LP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
 - LP faire le hors-ligne
 - LP faire les notifs
-- MP implementer les boutons du haut
 - MP mettre les heures
-- LP embellir les perticipants
 - LP mettre les criteres PWA
-- LP ecrire tous les tests
-- LP afficher les evenement avec leur couleur
 
-class="fill-height"
-style = "height:500px; width: 250px; overflow-y:auto; overflow-x:auto;"
 
 New priorities :
 - faire que si plus de 2 evenements on puisse voir quand meme : faire que quand on click sur more ca passe a la vue semaine en focus sur la date ?
-- enable creation of calendar
 - when getting on the page if no calendar selected default to creation
-- refactor code
+- sur mobile, resoudre le bug de selection, informations dans la console quand on click sur auelaue chose
+- ecrire tous les tests + code quality
+- faire 3 autres boutons du haut

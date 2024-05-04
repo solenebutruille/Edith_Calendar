@@ -1,6 +1,7 @@
 import { getDocs, collection } from "firebase/firestore";
-import { db, getIdCalendar } from "../main.js";
+import { db } from "../main.js";
 import { getParticipants } from './participants.js'
+import { getIdCalendar } from "./calendar.js"
 
 const events = [];
 const idCalendar = getIdCalendar();
