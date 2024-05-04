@@ -1,6 +1,7 @@
-import { db, getIdCalendar, colors, rnd } from "../main.js";
+import { db, colors, rnd } from "../main.js";
 import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { loadEvents } from "../models/events.js";
+import { getIdCalendar } from "./calendar.js"
 
 const idCalendar = getIdCalendar();
 const participants = [];

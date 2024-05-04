@@ -97,10 +97,11 @@
 </template>
 
 <script>
-  import { db, getIdCalendar } from "../../main.js";
+  import { db } from "../../main.js";
   import { doc, setDoc, Timestamp, updateDoc, deleteField } from "firebase/firestore";
   import { loadEvents } from "../../models/events.js";
   import { getSelectedParticipant } from "../../models/participants.js";
+  import { getIdCalendar } from "../../models/calendar.js"
 
   const idCalendar = getIdCalendar();
 

@@ -1,7 +1,6 @@
 <template>
   <v-row
     class="pa-6 ma-2 mx-lg-auto"
-    align="center"
     justify="space-around"
   >
   <div>
@@ -25,7 +24,7 @@
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showCreateCalendarModal = true"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -36,6 +35,8 @@
     >
       <v-icon>mdi-share</v-icon>
     </v-btn>
+
+    <CreateCalendarModal v-model="showCreateCalendarModal" />
 
     <v-dialog
       v-model="dialog"
@@ -66,9 +67,14 @@
 </template>
 
 <script type="text/javascript">
+  import CreateCalendarModal from './Modals/CreateCalendarModal';
   export default {
+    components: {
+      CreateCalendarModal
+    },
     data: () => ({
       dialog: false,
+      showCreateCalendarModal: false,
     })
   };
 

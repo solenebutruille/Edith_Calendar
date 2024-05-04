@@ -60,9 +60,10 @@
   import AddEventModal from './Modals/AddEventModal';
   import WrongParticipantSelectedModal from './Modals/WrongParticipantSelectedModal';
   import { getDocs, collection } from "firebase/firestore";
-  import { db, getIdCalendar } from "../main.js";
+  import { db } from "../main.js";
   import { getSelectedParticipant } from "../models/participants.js";
   import { getEvents } from '../models/events.js'
+  import { getIdCalendar } from "../models/calendar.js"
 
   const idCalendar = getIdCalendar();
 

@@ -23,12 +23,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export function getIdCalendar() {
-  let urlString = window.location.href;
-  let paramString = urlString.split('?')[1];
-  let queryString = new URLSearchParams(paramString);
-  return queryString.get("idCalendar");
-}
 export function  rnd (a, b) {
   return Math.floor((b - a + 1) * Math.random()) + a;
 }
