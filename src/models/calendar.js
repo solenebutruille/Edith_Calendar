@@ -1,4 +1,4 @@
-import { doc, writeBatch } from "firebase/firestore";
+import { doc, writeBatch, getDoc } from "firebase/firestore";
 import { db } from "../main.js";
 import { nanoid } from "nanoid";
 
@@ -32,4 +32,9 @@ export async function createCalendar (calendarName, calendarUsers) {
     .catch ((error) => {
       console.error("Batch write operation failed: ", error);
     });
+}
+
+export async function isCalendarIdValid(calendarId){
+  const calendarRef = await getDoc(doc(db, calendarId, "calendarInfo"));
+  return calendarRef.exists();
 }
