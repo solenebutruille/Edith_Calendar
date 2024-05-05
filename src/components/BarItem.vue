@@ -17,7 +17,7 @@
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showImportCalendarModal = true"
     >
       <v-icon>mdi-import</v-icon>
     </v-btn>
@@ -37,6 +37,7 @@
     </v-btn>
 
     <CreateCalendarModal v-model="showCreateCalendarModal" />
+    <ImportCalendarModal v-model="showImportCalendarModal" />
 
     <v-dialog
       v-model="dialog"
@@ -68,13 +69,17 @@
 
 <script type="text/javascript">
   import CreateCalendarModal from './Modals/CreateCalendarModal';
+  import ImportCalendarModal from './Modals/ImportCalendarModal';
+
   export default {
     components: {
-      CreateCalendarModal
+      CreateCalendarModal,
+      ImportCalendarModal
     },
     data: () => ({
       dialog: false,
       showCreateCalendarModal: false,
+      showImportCalendarModal: false,
     })
   };
 
