@@ -3,10 +3,8 @@ import { db } from "../main.js";
 import { nanoid } from "nanoid";
 
 export function getIdCalendar() {
-  let urlString = window.location.href;
-  let paramString = urlString.split('?')[1];
-  let queryString = new URLSearchParams(paramString);
-  return queryString.get("idCalendar");
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('idCalendar');
 }
 
 export async function createCalendar (calendarName, calendarUsers) {

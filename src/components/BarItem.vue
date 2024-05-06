@@ -3,14 +3,14 @@
     class="pa-6 ma-2 mx-lg-auto"
     justify="space-around"
   >
-  <div>
+  <div @click="redirectToHomePage" style="cursor: pointer">
     <div class="font-weight-bold font-weight-medium">E D I T H </div>
     <div class="font-weight-bold font-weight-medium">   C A L E N D A R </div>
   </div>
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showCreateCalendarModal = true"
     >
       <v-icon>mdi-calendar</v-icon>
     </v-btn>
@@ -24,63 +24,62 @@
     <v-btn
       icon
       color="indigo"
-      @click="showCreateCalendarModal = true"
+      @click="shareCalendar"
     >
-      <v-icon>mdi-plus</v-icon>
+      <v-icon>mdi-share</v-icon>
     </v-btn>
     <v-btn
       icon
       color="indigo"
-      @click="dialog = true"
+      @click="showContactModal = true"
     >
-      <v-icon>mdi-share</v-icon>
+      <v-icon>mdi-account</v-icon>
     </v-btn>
 
     <CreateCalendarModal v-model="showCreateCalendarModal" />
     <ImportCalendarModal v-model="showImportCalendarModal" />
-
-    <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Sorry ...
-        </v-card-title>
-
-          <v-spacer></v-spacer>
-        <v-card-text>
-          This functionnality is coming soon
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <ContactModal v-model="showContactModal" />
+    <ShareCalendarModal v-model="showShareCalendarModal" />
   </v-row>
 </template>
 
 <script type="text/javascript">
   import CreateCalendarModal from './Modals/CreateCalendarModal';
   import ImportCalendarModal from './Modals/ImportCalendarModal';
+  import ContactModal from './Modals/ContactModal';
+  import ShareCalendarModal from './Modals/ShareCalendarModal';
+  import { getIdCalendar } from "../models/calendar.js"
 
   export default {
     components: {
       CreateCalendarModal,
-      ImportCalendarModal
+      ImportCalendarModal,
+      ShareCalendarModal,
+      ContactModal
     },
     data: () => ({
-      dialog: false,
-      showCreateCalendarModal: false,
+      showCreateCalendarModal: getIdCalendar() ? false : true,
       showImportCalendarModal: false,
-    })
+      showShareCalendarModal: false,
+      showContactModal: false,
+    }),
+    methods: {
+      redirectToHomePage () {
+        window.location.href = window.location.origin;
+      },
+      async shareCalendar(){
+        if(navigator.share){
+          const shareData = {
+            title: "My calendar",
+            text: "Share my calendar",
+            url: window.location.href,
+          };
+          await navigator.share(shareData);
+        } else {
+          this.showShareCalendarModal = true;
+        }
+      }
+    }
   };
 
 </script>

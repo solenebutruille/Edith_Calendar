@@ -23,7 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export function  rnd (a, b) {
+export function rnd (a, b) {
   return Math.floor((b - a + 1) * Math.random()) + a;
 }
 export const colors = ['blue', 'indigo', 'green', 'orange', 'grey', "red"];
