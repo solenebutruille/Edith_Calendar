@@ -40,19 +40,21 @@ export default {
   methods: {
     onResize() {
       this.windowSize = { width: window.innerWidth, height: window.innerHeight };
-    },
+    }
   },
   mounted() {
     this.onResize();
   },
-  data: () => ({
-    showModalSelectParticipant: true,
-    isActive: false,
-    windowSize: {
-      width: 0,
-      height: 0,
-    },
-  }),
+  data: () => {
+    return {
+      showModalSelectParticipant: true,
+      isActive: false,
+      windowSize: {
+        width: 0,
+        height: 0,
+      },
+    }
+  },
 };
 
 </script>

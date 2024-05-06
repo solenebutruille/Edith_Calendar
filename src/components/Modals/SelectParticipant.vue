@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="show" width="500">
+    <v-dialog v-model="show" width="500" persistent v-if="calendarId">
     <v-form ref="form" v-model="valid">
       <v-card>
         <v-toolbar color="indigo" dark>
@@ -56,6 +56,7 @@
 
 <script>
   import { getParticipants, addParticipant, setSelectedParticipant, loadParticipants } from "../../models/participants.js";
+  import { getIdCalendar } from "../../models/calendar.js"
 
   export default {
     props:  {
@@ -73,6 +74,7 @@
         menu: false,
         newParticipantName: "",
         items: getParticipants(),
+        calendarId: getIdCalendar()
       }
     },
     methods: {
