@@ -8,15 +8,12 @@
 
 
 New priorities :
-- faire que si plus de 2 evenements on puisse voir quand meme : faire que quand on click sur more ca passe a la vue semaine en focus sur la date ?
-- when getting on the page if no calendar selected default to creation
+- faire que quand on click sur more ca passe a la vue semaine en focus sur la date ?
 - sur mobile, resoudre le bug de selection, informations dans la console quand on click sur auelaue chose
 - ecrire tous les tests + code quality
-- on create calendar modal, verify fields are fill in before sending
 - on home page, disable the calls to firebaseapp
 - redirect to home page if id is invalid
-- traduire en francais
-
+- mettre les cles API en pas public
 
 async verifyCalendarId(){
 console.log("test");

@@ -44,7 +44,7 @@ new Vue({
   },
   created(){
     const browserLanguage = navigator.language.substring(0, 2);
-    this.currentLanguage = (browserLanguage === 'fr') ? 'en' : 'en';
+    this.currentLanguage = (browserLanguage === 'fr') ? 'fr' : 'en';
   },
   computed: {
     currentMessages() {
