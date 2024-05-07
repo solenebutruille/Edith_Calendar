@@ -5,7 +5,7 @@
       :participantToDelete="participantToDelete"
     > </ConfirmParticipantDeleteModal>
     <v-toolbar color="indigo" dark>
-      <v-toolbar-title>Participants</v-toolbar-title>
+      <v-toolbar-title>{{ $root.currentMessages.participants }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
         class="mx-2"
@@ -22,10 +22,10 @@
         max-width="290"
       >
         <v-card>
-          <v-card-title class="text-h5"> New Participant </v-card-title>
+          <v-card-title class="text-h5">{{ $root.currentMessages.newParticipant }}</v-card-title>
           <v-spacer></v-spacer>
           <v-text-field
-              label="Name"
+              :label=$root.currentMessages.name
               placeholder="Jean-Filou"
               filled
               @input="updateName($event)"
@@ -38,7 +38,7 @@
               text
               @click="addParticipant($event)"
             >
-              Add
+              {{ $root.currentMessages.add }}
             </v-btn>
           </v-card-actions>
         </v-card>

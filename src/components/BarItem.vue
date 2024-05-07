@@ -1,38 +1,19 @@
 <template>
-  <v-row
-    class="pa-6 ma-2 mx-lg-auto"
-    justify="space-around"
-  >
-  <div @click="redirectToHomePage" style="cursor: pointer">
-    <div class="font-weight-bold font-weight-medium">E D I T H </div>
-    <div class="font-weight-bold font-weight-medium">   C A L E N D A R </div>
-  </div>
-    <v-btn
-      icon
-      color="indigo"
-      @click="showCreateCalendarModal = true"
-    >
+  <v-row class="pa-6 ma-2 mx-lg-auto" justify="space-around">
+    <div @click="redirectToHomePage" style="cursor: pointer">
+      <div class="font-weight-bold font-weight-medium">E D I T H </div>
+      <div class="font-weight-bold font-weight-medium">   C A L E N D A R </div>
+    </div>
+    <v-btn icon color="indigo" @click="showCreateCalendarModal = true">
       <v-icon>mdi-calendar</v-icon>
     </v-btn>
-    <v-btn
-      icon
-      color="indigo"
-      @click="showImportCalendarModal = true"
-    >
+    <v-btn icon color="indigo" @click="showImportCalendarModal = true">
       <v-icon>mdi-import</v-icon>
     </v-btn>
-    <v-btn
-      icon
-      color="indigo"
-      @click="shareCalendar"
-    >
+    <v-btn icon color="indigo" @click="shareCalendar">
       <v-icon>mdi-share</v-icon>
     </v-btn>
-    <v-btn
-      icon
-      color="indigo"
-      @click="showContactModal = true"
-    >
+    <v-btn icon color="indigo" @click="showContactModal = true">
       <v-icon>mdi-account</v-icon>
     </v-btn>
 

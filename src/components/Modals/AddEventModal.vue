@@ -1,65 +1,62 @@
 <template>
   <div class="text-center">
-    <v-dialog
-      v-model="show"
-      width="500"
-    >
-    <v-form
-    ref="form"
-    v-model="valid"
-  >
-      <v-card>
-        <v-toolbar
-          color="blue"
-          dark
-        >
-          <v-toolbar-title> Event details </v-toolbar-title>
-        </v-toolbar>
-        <v-text-field
-          label="Title"
-          :value="field.title"
-          class="pt-6 ma-2 mx-lg-auto"
-          @input="updateTheVariable($event)"
-          :rules="[v => !!v || 'Item is required']"
-          style="padding-left: 5px;"
-          centered
-          required
-      ></v-text-field>
-        <v-row class="pt-6 ma-2 mx-lg-auto">
-          <v-menu
-              v-model="menu"
-              :close-on-content-click="false"
-            >
+    <v-dialog v-model="show" width="500">
+      <v-form ref="form" v-model="valid">
+        <v-card>
+          <v-toolbar color="blue" dark>
+            <v-toolbar-title> {{ $root.currentMessages.eventDetails }} </v-toolbar-title>
+          </v-toolbar>
+          <v-text-field
+            :label=$root.currentMessages.title
+            :value="field.title"
+            class="pt-6 ma-2 mx-lg-auto"
+            @input="updateTheVariable($event)"
+            :rules="[v => !!v || $root.currentMessages.itemIsRequired]"
+            style="padding-left: 5px;"
+            centered
+            required
+          ></v-text-field>
+          <v-row class="pt-6 ma-2 mx-lg-auto">
+            <v-menu v-model="menu" :close-on-content-click="false">
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="field.dates[0]"
-                  label="Start Date"
+                  :label=$root.currentMessages.startDate
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
                   v-on="on"
-                  :rules="[v => !!v || 'Item is required']"
+                  :rules="[v => !!v || $root.currentMessages.itemIsRequired]"
                   required
                 ></v-text-field>
                 <v-text-field
                   v-model="field.dates[1]"
-                  label="End Date"
+                  :label=$root.currentMessages.endDate
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
                   v-on="on"
-                  :rules="[v => !!v || 'Item is required']"
+                  :rules="[v => !!v || $root.currentMessages.itemIsRequired]"
                   required
                 ></v-text-field>
               </template>
               <v-date-picker
                 v-model="field.dates"
-                locale="en-en"
+                :locale=$root.currentMessages.dateFormat
                 :first-day-of-week="1"
                 @input="onChangeDate"
                 color="blue"
                 range
-              ></v-date-picker>
+              >
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  @click="menu = false"
+                  text
+                >
+                  OK
+                </v-btn>
+              </v-date-picker>
             </v-menu>
           </v-row>
         <v-divider></v-divider>
@@ -71,7 +68,7 @@
             v-if="field.newEvent"
             :disabled="!valid"
           >
-            Create
+            {{ $root.currentMessages.create }}
           </v-btn>
           <v-btn
             depressed
@@ -80,14 +77,14 @@
             v-if="!field.newEvent"
             :disabled="!valid"
           >
-            Update
+            {{ $root.currentMessages.update }}
           </v-btn>
           <v-btn
             color="error"
             @click="removeEvent"
             v-if="!field.newEvent"
           >
-            Delete
+            {{ $root.currentMessages.delete }}
           </v-btn>
         </v-card-actions>
       </v-card>

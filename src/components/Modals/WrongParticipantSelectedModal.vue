@@ -14,7 +14,7 @@
           v-bind="attrs"
           @click="show = false"
         >
-          Close
+          {{ $root.currentMessages.close }}
         </v-btn>
       </template>
     </v-snackbar>
