@@ -3,20 +3,20 @@
     <v-form ref="form" v-model="valid">
       <v-card>
         <v-toolbar color="indigo" dark>
-          <v-toolbar-title>Load Calendar</v-toolbar-title>
+          <v-toolbar-title>{{ $root.currentMessages.loadCalendar }}</v-toolbar-title>
         </v-toolbar>
         <v-divider></v-divider>
-        <v-text-field label="Calendar Id" placeholder="4d1jwkALDdj9Y_fRcF" filled :value="calendarIdentifier"
+        <v-text-field :label=$root.currentMessages.calendarID placeholder="4d1jwkALDdj9Y_fRcF" filled :value="calendarIdentifier"
           class="pt-6 ma-2 mx-lg-auto" @input="calendarIdentifier = $event; isIdValid = true;" :rules="[rules.required, rules.validId]"
           centered required></v-text-field>
         <v-divider></v-divider>
         <v-card-actions>
           <v-btn color="primary" text @click="show = false">
-            Cancel
+            {{ $root.currentMessages.cancel }}
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click="loadCalendar">
-            Load
+            {{ $root.currentMessages.load }}
           </v-btn>
         </v-card-actions>
       </v-card>

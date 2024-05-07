@@ -13,12 +13,10 @@
         v-model="listOpen"
       >
         <template v-slot:activator>
-          <v-list-item-title>Participants</v-list-item-title>
+          <v-list-item-title>{{ $root.currentMessages.participants }}</v-list-item-title>
         </template>
         <v-list>
-          <v-list-item-group
-            color="primary"
-          >
+          <v-list-item-group color="primary">
           <template v-for="(item, index) in items">
               <v-list-item :key="item.title"  @click="updateSelectedParticipant(index)" :class="index === getSelectedParticipantIndex(index) ? 'v-list-item--active': ''">
                 <v-list-item-icon>
@@ -29,11 +27,7 @@
                     v-text="item.title"
                   ></v-list-item-title>
                 </v-list-item-content>
-                <v-btn
-                  icon
-                  color="red"
-                   @click="removeParticipant(item.title)"
-                >
+                <v-btn icon color="red" @click="removeParticipant(item.title)">
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
               </v-list-item>
@@ -45,7 +39,7 @@
             </v-list-item-icon>
               <v-text-field
                   single-line
-                  placeholder="New Participant Name"
+                  :placeholder=$root.currentMessages.newCalendarName
                   @input="updateName($event)"
                   :value="addingName"
               ></v-text-field>

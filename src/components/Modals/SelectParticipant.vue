@@ -4,7 +4,7 @@
     <v-form ref="form" v-model="valid">
       <v-card>
         <v-toolbar color="indigo" dark>
-          <v-toolbar-title>Click on your name</v-toolbar-title>
+          <v-toolbar-title>{{ $root.currentMessages.clickOnYourName }}</v-toolbar-title>
         </v-toolbar>
         <v-divider></v-divider>
         <v-list>
@@ -32,7 +32,7 @@
             </v-list-item-icon>
               <v-text-field
                   single-line
-                  placeholder="New Participant Name"
+                  :placeholder=$root.currentMessages.newParticipantName
                   @input="updateNewParticipantName($event)"
                   :value="newParticipantName"
               ></v-text-field>
@@ -40,7 +40,7 @@
                 icon
                 color="green"
                 v-show="hover"
-                 @click="addParticipant"
+                @click="addParticipant"
               >
                 <v-icon>mdi-plus</v-icon>
               </v-btn>

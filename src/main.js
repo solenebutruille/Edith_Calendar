@@ -3,12 +3,19 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import en from "@/lang/en";
+import fr from "@/lang/fr";
 
 import VueTextareaAutosize from 'vue-textarea-autosize'
 
 Vue.use(VueTextareaAutosize)
 
 Vue.config.productionTip = false
+
+const messages = {
+  en,
+  fr
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyCjknpiTMTtixypvqqq4LK8xw0v4WMGaNg",
@@ -30,5 +37,19 @@ export const colors = ['blue', 'indigo', 'green', 'orange', 'grey', "red"];
 
 new Vue({
   vuetify,
+  data() {
+    return {
+      currentLanguage: '',
+    }
+  },
+  created(){
+    const browserLanguage = navigator.language.substring(0, 2);
+    this.currentLanguage = (browserLanguage === 'fr') ? 'en' : 'en';
+  },
+  computed: {
+    currentMessages() {
+      return messages[this.currentLanguage];
+    }
+  },
   render: h => h(App)
 }).$mount('#app')

@@ -3,22 +3,10 @@
     <v-col>
       <v-sheet>
         <v-toolbar flat >
-          <v-btn
-            fab
-            text
-            small
-            color="grey darken-2"
-            @click="prev"
-          >
+          <v-btn fab text small color="grey darken-2" @click="prev">
             <v-icon small> mdi-chevron-left </v-icon>
           </v-btn>
-          <v-btn
-            fab
-            text
-            small
-            color="grey darken-2"
-            @click="next"
-          >
+          <v-btn fab text small color="grey darken-2" @click="next">
             <v-icon small> mdi-chevron-right </v-icon>
           </v-btn>
           <v-toolbar-title v-if="$refs.calendar">
@@ -39,6 +27,7 @@
           :events="events"
           :event-color="getEventColor"
           :type="type"
+          :locale=$root.currentMessages.dateFormat
           :weekdays="weekdays"
           @click:event="showEvent"
           @click:date="addEvent"

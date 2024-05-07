@@ -4,20 +4,20 @@
       <v-form ref="form" v-model="valid">
         <v-card>
           <v-toolbar color="red" dark>
-            <v-toolbar-title> Participant Deletion </v-toolbar-title>
+            <v-toolbar-title> {{ $root.currentMessages.participantDeletion }} </v-toolbar-title>
           </v-toolbar>
           <v-divider></v-divider>
           <p class="font-weight-medium text-center" style="margin-top: 15px;">
-            Delete {{ this.participantToDelete }} and his events ?
+            {{ $root.currentMessages.delete }} {{ this.participantToDelete }} {{ $root.currentMessages.andEvents }}
           </p>
           <v-divider></v-divider>
           <v-card-actions>
             <v-btn color="primary" @click="cancel">
-              Cancel
+              {{ $root.currentMessages.cancel }}
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn color="error" @click="deleteParticipant">
-              Delete
+              {{ $root.currentMessages.delete }}
             </v-btn>
           </v-card-actions>
         </v-card>
