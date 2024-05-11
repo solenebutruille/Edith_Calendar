@@ -1,10 +1,23 @@
-import { doc, writeBatch, getDoc } from "firebase/firestore";
+import { doc, writeBatch, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../main.js";
 import { nanoid } from "nanoid";
 
 export function getIdCalendar() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get('idCalendar');
+}
+
+export async function getCalendarName(){
+  const idCalendar = getIdCalendar();
+  const querySnapshot = await getDocs(collection(db, idCalendar));
+  let calendarName = ""
+  querySnapshot.forEach((doc) => {
+      if(doc.id === "calendarInfo"){
+        const data = doc.data();
+        calendarName = data.name;
+      }
+  });
+  return calendarName;
 }
 
 export async function createCalendar (calendarName, calendarUsers) {

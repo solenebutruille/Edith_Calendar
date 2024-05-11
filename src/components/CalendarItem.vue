@@ -13,9 +13,12 @@
             <small style="font-size: 15px;">{{ $refs.calendar.title }}</small>
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <div class="font-weight-bold font-weight-medium" style="font-size: 20px;">
-            {{ calendarName }}
-          </div>
+          <template>
+            <v-btn icon color="indigo" @click="toggleView">
+              <v-icon small v-if="type === 'month'"> mdi-magnify </v-icon>
+              <v-icon small v-else> mdi-arrow-expand-all </v-icon>
+            </v-btn>
+          </template>
         </v-toolbar>
       </v-sheet>
       <v-sheet height="600">
@@ -23,14 +26,15 @@
           ref="calendar"
           v-model="focus"
           color="primary"
-          :event-more="eventMore"
           :events="events"
           :event-color="getEventColor"
           :type="type"
           :locale=$root.currentMessages.dateFormat
           :weekdays="weekdays"
+          :interval-count="0"
           @click:event="showEvent"
           @click:date="addEvent"
+          @click:more="viewDay"
         ></v-calendar>
       </v-sheet>
       <AddEventModal
@@ -48,17 +52,11 @@
 <script>
   import AddEventModal from './Modals/AddEventModal';
   import WrongParticipantSelectedModal from './Modals/WrongParticipantSelectedModal';
-  import { getDocs, collection } from "firebase/firestore";
-  import { db } from "../main.js";
   import { getSelectedParticipant } from "../models/participants.js";
   import { getEvents } from '../models/events.js'
-  import { getIdCalendar } from "../models/calendar.js"
-
-  const idCalendar = getIdCalendar();
 
   export default {
     data() {
-      this.getCalendarName(idCalendar);
       return {
           modalData: {
             dates: [new Date()],
@@ -83,7 +81,6 @@
           eventMore: false,
           events:  getEvents(),
           weekdays: "1,2,3,4,5,6,0",
-          calendarName: "",
       }
     },
     components: {
@@ -94,6 +91,13 @@
       this.$refs.calendar.checkChange()
     },
     methods: {
+      viewDay({ date }){
+        this.focus = date;
+        this.type = 'week';
+      },
+      toggleView(){
+        this.type = (this.type === 'week') ? 'month' : 'week';
+      },
       getEventColor (event) {
         return event.color
       },
@@ -142,16 +146,13 @@
           this.showModalWrongParticipant = true;
           return false;
         } else return true;
-      },
-      async getCalendarName(idCalendar){
-          const querySnapshot = await getDocs(collection(db, idCalendar));
-          querySnapshot.forEach((doc) => {
-            if(doc.id === "calendarInfo"){
-              const data = doc.data();
-              this.calendarName = data.name;
-            }
-          });
       }
     },
   }
 </script>
+
+<style>
+  .v-calendar-daily__head {
+    height: 599px;
+  }
+</style>
