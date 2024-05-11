@@ -155,4 +155,8 @@
   .v-calendar-daily__head {
     height: 599px;
   }
+
+  .v-calendar-daily__intervals-head {
+    width: 0px !important;
+  }
 </style>
