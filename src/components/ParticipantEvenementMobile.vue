@@ -39,7 +39,7 @@
             </v-list-item-icon>
               <v-text-field
                   single-line
-                  :placeholder=$root.currentMessages.newCalendarName
+                  :placeholder=$root.currentMessages.newParticipantName
                   @input="updateName($event)"
                   :value="addingName"
               ></v-text-field>

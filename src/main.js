@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getIdCalendar, isCalendarIdValid } from "./models/calendar.js"
 import en from "@/lang/en";
 import fr from "@/lang/fr";
 
@@ -42,9 +43,14 @@ new Vue({
       currentLanguage: '',
     }
   },
-  created(){
+  async created(){
     const browserLanguage = navigator.language.substring(0, 2);
     this.currentLanguage = (browserLanguage === 'fr') ? 'fr' : 'en';
+    const idCalendar = getIdCalendar();
+    const isCalendarValid  = await isCalendarIdValid(idCalendar);
+    if(!isCalendarValid) {
+      window.location.href = window.location.origin;
+    }
   },
   computed: {
     currentMessages() {

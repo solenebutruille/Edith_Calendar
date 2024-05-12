@@ -5,6 +5,9 @@
         v-model="showModalSelectParticipant"
      > </SelectParticipant>
       <BarItem/>
+      <v-container class="d-flex justify-center" style="margin-bottom:10px;">
+        <small style="font-size:20px; font-weight: 700 !important;"> {{ calendarName }} </small>
+      </v-container>
       <v-lazy v-model="isActive" >
         <ParticipantEvenementMobile v-if="windowSize.width <= 650"/>
       </v-lazy>
@@ -27,6 +30,7 @@ import BarItem from './components/BarItem';
 import ParticipantEvenement from './components/ParticipantEvenement';
 import ParticipantEvenementMobile from './components/ParticipantEvenementMobile';
 import SelectParticipant from './components/Modals/SelectParticipant';
+import { getCalendarName } from './models/calendar.js';
 
 export default {
   name: 'App',
@@ -42,12 +46,14 @@ export default {
       this.windowSize = { width: window.innerWidth, height: window.innerHeight };
     }
   },
-  mounted() {
+  async mounted() {
     this.onResize();
+    this.calendarName = await getCalendarName();
   },
   data: () => {
     return {
       showModalSelectParticipant: true,
+      calendarName: "",
       isActive: false,
       windowSize: {
         width: 0,
