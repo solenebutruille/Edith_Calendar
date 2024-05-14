@@ -1,23 +1,14 @@
-- HP dans participantsEvenements enlever toutes les tailles harcode
 - MP fermer le datepicker quand yen a 2 selectionnees
 - LP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
 - LP faire le hors-ligne
 - LP faire les notifs
 - MP mettre les heures
-- LP mettre les criteres PWA
 
 
 New priorities :
-- faire que quand on click sur more ca passe a la vue semaine en focus sur la date ?
-- sur mobile, resoudre le bug de selection, informations dans la console quand on click sur auelaue chose
-- ecrire tous les tests + code quality
-- on home page, disable the calls to firebaseapp
-- redirect to home page if id is invalid
 - mettre les cles API en pas public
-
-async verifyCalendarId(){
-console.log("test");
-  if(await isCalendarIdValid()) {
-    window.location.href = window.location.origin;
-  }
-}
+- on home page, disable the calls to firebaseapp
+- ne pas reload les participants quand on select participant
+- mettre les criteres PWA
+- ecrire tous les tests + code quality
+- enlever toutes les tailles harcode (600 du calendrier 599 de l'autre)

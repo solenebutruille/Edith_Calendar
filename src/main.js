@@ -6,12 +6,10 @@ import { getFirestore } from "firebase/firestore";
 import { getIdCalendar, isCalendarIdValid } from "./models/calendar.js"
 import en from "@/lang/en";
 import fr from "@/lang/fr";
+import VueTextareaAutosize from 'vue-textarea-autosize';
 
-import VueTextareaAutosize from 'vue-textarea-autosize'
-
-Vue.use(VueTextareaAutosize)
-
-Vue.config.productionTip = false
+Vue.use(VueTextareaAutosize);
+Vue.config.productionTip = false;
 
 const messages = {
   en,
@@ -19,13 +17,12 @@ const messages = {
 }
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCjknpiTMTtixypvqqq4LK8xw0v4WMGaNg",
-  authDomain: "pleeease-2b282.firebaseapp.com",
-  projectId: "pleeease-2b282",
-  storageBucket: "pleeease-2b282.appspot.com",
-  messagingSenderId: "538972077498",
-  appId: "1:538972077498:web:ba4c8137d769195b353183",
-  measurementId: "G-5YJ3BMM7XL"
+  apikey: process.env.VUE_APP_API_KEY,
+  authDomain: process.env.VUE_APP_AUTH_DOMAIN,
+  projectId: process.env.VUE_APP_PROJECT_ID,
+  storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
+  appId: process.env.VUE_APP_APP_ID,
 };
 
 // Initialize Firebase
