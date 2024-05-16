@@ -1,10 +1,16 @@
 import { loadParticipants, getParticipants, setSelectedParticipant, addParticipant, getSelectedParticipantIndex } from "../models/participants.js";
 import { loadEvents } from "../models/events.js"
 import ConfirmParticipantDeleteModal from "../components/Modals/ConfirmParticipantDeleteModal";
+import { eventBus } from "@/main.js";
 
 export default {
   components: {
     ConfirmParticipantDeleteModal
+  },
+  created(){
+    eventBus.$on('updated-selected-participant', () => {
+      this.forceReRender();
+    });
   },
   methods: {
     async addParticipant () {

@@ -1,7 +1,7 @@
-import { db, colors, rnd } from "../main.js";
+import { db, colors, rnd, eventBus } from "@/main.js";
 import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { loadEvents } from "../models/events.js";
-import { getIdCalendar } from "./calendar.js"
+import { getIdCalendar } from "./calendar.js";
 
 const idCalendar = getIdCalendar();
 const participants = [];
@@ -10,6 +10,7 @@ export var selectedParticipantIndex = undefined;
 
 export function setSelectedParticipant(index) {
   selectedParticipantIndex = index;
+  eventBus.$emit('updated-selected-participant');
 }
 
 export function getSelectedParticipant() {
@@ -31,7 +32,6 @@ export async function addParticipant(name){
   await loadParticipants();
   const newParticipantIndex = participants.findIndex((part) => part.title === name);
   setSelectedParticipant(newParticipantIndex);
-  await loadParticipants();
 }
 
 export async function deleteParticipant(participant){
@@ -41,6 +41,7 @@ export async function deleteParticipant(participant){
 }
 
 export async function loadParticipants(){
+  if(!idCalendar) return;
   participants.splice(0, participants.length);
   var colorsParticipants = colors.slice();
   const querySnapshot = await getDocs(collection(db, idCalendar));

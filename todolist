@@ -6,9 +6,7 @@
 
 
 New priorities :
-- mettre les cles API en pas public
-- on home page, disable the calls to firebaseapp
-- ne pas reload les participants quand on select participant
-- mettre les criteres PWA
-- ecrire tous les tests + code quality
+- mettre les criteres PWA+  icons et tout
+- redo where I write the data to write it differently and do the firebase rules
+- ecrire tous les tests + code quality (mettre le code du add event dans le calendrier + rename icalendar en id et l'avoir a un seul endroit pareil pour infocalendar)
 - enlever toutes les tailles harcode (600 du calendrier 599 de l'autre)
