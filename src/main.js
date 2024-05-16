@@ -10,6 +10,7 @@ import VueTextareaAutosize from 'vue-textarea-autosize';
 
 Vue.use(VueTextareaAutosize);
 Vue.config.productionTip = false;
+export const eventBus = new Vue();
 
 const messages = {
   en,
@@ -37,21 +38,21 @@ new Vue({
   vuetify,
   data() {
     return {
-      currentLanguage: '',
+      currentLanguage: [],
     }
   },
   async created(){
     const browserLanguage = navigator.language.substring(0, 2);
-    this.currentLanguage = (browserLanguage === 'fr') ? 'fr' : 'en';
+    this.currentLanguage = (browserLanguage === 'fr') ? messages['fr'] : messages['en'];
     const idCalendar = getIdCalendar();
     const isCalendarValid  = await isCalendarIdValid(idCalendar);
-    if(!isCalendarValid) {
+    if(!isCalendarValid && (window.location.href != window.location.origin + window.location.pathname)) {
       window.location.href = window.location.origin;
     }
   },
   computed: {
     currentMessages() {
-      return messages[this.currentLanguage];
+      return this.currentLanguage;
     }
   },
   render: h => h(App)

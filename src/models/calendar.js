@@ -9,6 +9,7 @@ export function getIdCalendar() {
 
 export async function getCalendarName(){
   const idCalendar = getIdCalendar();
+  if(!idCalendar) return;
   const querySnapshot = await getDocs(collection(db, idCalendar));
   let calendarName = ""
   querySnapshot.forEach((doc) => {
@@ -46,6 +47,7 @@ export async function createCalendar (calendarName, calendarUsers) {
 }
 
 export async function isCalendarIdValid(calendarId){
+  if(!calendarId) return;
   const calendarRef = await getDoc(doc(db, calendarId, "calendarInfo"));
   return calendarRef.exists();
 }

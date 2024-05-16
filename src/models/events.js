@@ -11,6 +11,7 @@ export function getEvents() {
 }
 
 export async function loadEvents () {
+  if(!idCalendar) return;
   resetEvents();
   const querySnapshot = await getDocs(collection(db, idCalendar));
 

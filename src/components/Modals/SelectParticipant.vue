@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import { getParticipants, addParticipant, setSelectedParticipant, loadParticipants } from "../../models/participants.js";
+  import { getParticipants, addParticipant, setSelectedParticipant } from "../../models/participants.js";
   import { getIdCalendar } from "../../models/calendar.js"
 
   export default {
@@ -82,7 +82,6 @@
         if(!value || value === 0) return;
         setSelectedParticipant(value - 1);
         this.show = false;
-        loadParticipants();
       },
       async addParticipant () {
         if(!this.newParticipantName) return;
