@@ -1,0 +1,25 @@
+{
+  "name": "Edith Calendar",
+  "short_name": "Edith Calendar",
+  "description": "An intuitive calendar application for organising your events.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1976D2",
+  "background_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "/img/icons/calendar-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/icons/calendar-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "scope": "/"
+}

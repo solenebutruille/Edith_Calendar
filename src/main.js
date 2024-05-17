@@ -17,6 +17,14 @@ const messages = {
   fr
 }
 
+if('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js');
+    //    .then(registration  => { console.log("registered" +registration) })
+    //    .catch(error  => { console.log("error" + error) })
+  })
+}
+
 const firebaseConfig = {
   apikey: process.env.VUE_APP_API_KEY,
   authDomain: process.env.VUE_APP_AUTH_DOMAIN,
