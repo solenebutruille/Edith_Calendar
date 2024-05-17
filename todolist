@@ -1,12 +1,10 @@
-- MP fermer le datepicker quand yen a 2 selectionnees
 - LP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
 - LP faire le hors-ligne
 - LP faire les notifs
 - MP mettre les heures
 
-
 New priorities :
-- mettre les criteres PWA+  icons et tout
+- mettre les criteres PWA +  icons et tout
 - redo where I write the data to write it differently and do the firebase rules
 - ecrire tous les tests + code quality (mettre le code du add event dans le calendrier + rename icalendar en id et l'avoir a un seul endroit pareil pour infocalendar)
 - enlever toutes les tailles harcode (600 du calendrier 599 de l'autre)
