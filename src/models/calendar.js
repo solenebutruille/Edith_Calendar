@@ -36,7 +36,6 @@ export async function createCalendar (calendarName, calendarUsers) {
   await batch
     .commit()
     .then(() => {
-      console.log("Batch write operation completed");
       const baseUrl = window.location.origin + window.location.pathname;
       const newUrl = `${baseUrl}?idCalendar=${uuid}`;
       window.location.href = newUrl;

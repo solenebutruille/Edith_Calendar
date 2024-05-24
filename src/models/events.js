@@ -1,4 +1,4 @@
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, setDoc, doc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../main.js";
 import { getParticipants } from './participants.js'
 import { getIdCalendar } from "./calendar.js"
@@ -8,6 +8,25 @@ const idCalendar = getIdCalendar();
 
 export function getEvents() {
    return events;
+}
+
+export async function createEvent(participant, eventData){
+  await setDoc(doc(db, idCalendar, participant), eventData, { merge: true});
+  loadEvents();
+}
+
+export async function removeEvent(participant, fieldId){
+  const participantRef = doc(db, idCalendar, participant);
+  var removeData = {};
+  removeData[fieldId] =  deleteField();
+  await updateDoc(participantRef, removeData);
+  loadEvents();
+}
+
+export async function updateEvent(participant, updateData){
+  const participantRef = doc(db, idCalendar, participant);
+  await updateDoc(participantRef, updateData);
+  loadEvents();
 }
 
 export async function loadEvents () {

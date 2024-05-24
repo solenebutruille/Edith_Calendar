@@ -4,11 +4,11 @@
       <div class="font-weight-bold font-weight-medium">E D I T H </div>
       <div class="font-weight-bold font-weight-medium">   C A L E N D A R </div>
     </div>
-    <v-btn icon color="indigo" @click="showCreateCalendarModal = true">
+    <v-btn icon color="indigo" @click="showMyCalendarsModal = true">
       <v-icon>mdi-calendar</v-icon>
     </v-btn>
-    <v-btn icon color="indigo" @click="showImportCalendarModal = true">
-      <v-icon>mdi-import</v-icon>
+    <v-btn icon color="indigo" @click="showCreateCalendarModal = true">
+      <v-icon>mdi-plus</v-icon>
     </v-btn>
     <v-btn icon color="indigo" @click="shareCalendar">
       <v-icon>mdi-share</v-icon>
@@ -18,29 +18,44 @@
     </v-btn>
 
     <CreateCalendarModal v-model="showCreateCalendarModal" />
-    <ImportCalendarModal v-model="showImportCalendarModal" />
+    <MyCalendarsModal v-model="showMyCalendarsModal" />
     <ContactModal v-model="showContactModal" />
     <ShareCalendarModal v-model="showShareCalendarModal" />
   </v-row>
 </template>
 
 <script type="text/javascript">
-  import CreateCalendarModal from './Modals/CreateCalendarModal';
-  import ImportCalendarModal from './Modals/ImportCalendarModal';
-  import ContactModal from './Modals/ContactModal';
-  import ShareCalendarModal from './Modals/ShareCalendarModal';
-  import { getIdCalendar } from "../models/calendar.js"
+  import CreateCalendarModal from '@/components/Modals/CreateCalendarModal';
+  import MyCalendarsModal from '@/components/Modals/MyCalendarsModal';
+  import ContactModal from '@/components/Modals/ContactModal';
+  import ShareCalendarModal from '@/components/Modals/ShareCalendarModal';
+  import { getIdCalendar } from "@/models/calendar.js";
+  import { executeActionIndexedDB, ActionEnum } from "@/models/indexedDB.js";
+  import { eventBus } from "@/main.js";
 
   export default {
     components: {
       CreateCalendarModal,
-      ImportCalendarModal,
+      MyCalendarsModal,
       ShareCalendarModal,
       ContactModal
     },
+    async mounted() {
+      if(!getIdCalendar()){
+          let count = await executeActionIndexedDB(ActionEnum.COUNT, "");
+          if(count === 0) this.showCreateCalendarModal = true;
+          else this.showMyCalendarsModal = true;
+      }
+    },
+    created(){
+      eventBus.$on('no-previous-calendars-on-homepage', () => {
+        this.showCreateCalendarModal = true;
+        this.showMyCalendarsModal = false;
+      });
+    },
     data: () => ({
-      showCreateCalendarModal: getIdCalendar() ? false : true,
-      showImportCalendarModal: false,
+      showCreateCalendarModal: false,
+      showMyCalendarsModal: false,
       showShareCalendarModal: false,
       showContactModal: false,
     }),

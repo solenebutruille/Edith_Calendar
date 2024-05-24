@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getIdCalendar, isCalendarIdValid } from "./models/calendar.js"
+import { executeActionIndexedDB, ActionEnum } from "./models/indexedDB.js";
 import en from "@/lang/en";
 import fr from "@/lang/fr";
 import VueTextareaAutosize from 'vue-textarea-autosize';
@@ -52,11 +53,13 @@ new Vue({
   async created(){
     const browserLanguage = navigator.language.substring(0, 2);
     this.currentLanguage = (browserLanguage === 'fr') ? messages['fr'] : messages['en'];
+    if(window.location.href == window.location.origin + window.location.pathname) return;
     const idCalendar = getIdCalendar();
     const isCalendarValid  = await isCalendarIdValid(idCalendar);
-    if(!isCalendarValid && (window.location.href != window.location.origin + window.location.pathname)) {
+    if(!isCalendarValid) {
       window.location.href = window.location.origin;
     }
+    executeActionIndexedDB(ActionEnum.ADD, "");
   },
   computed: {
     currentMessages() {

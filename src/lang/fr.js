@@ -20,7 +20,7 @@ export default {
   createNewCalendar: "Créer un nouveau calendrier",
   participants: "Participants",
   load: "Charger",
-  loadCalendar: "Importer un calendrier",
+  myCalendars: "Mes calendriers",
   clickOnYourName: "Click sur ton prénom",
   copytToClipboard: "Copié dans le presse papier",
   calendarID: "ID du calendrier",
@@ -30,5 +30,7 @@ export default {
   add: "Ajouter",
   newParticipantName: "Nom du nouveau participant",
   newCalendarName:"Nom du nouveau calendrier",
-  invalidID: "l'ID est invalide"
+  invalidID: "l'ID est invalide",
+  invalidCalendarDeleteMessage: "Ce calendrier n'est plus valide.",
+    emptyCalendarsText: "Vous ne semblez pas avoir de calendrier précédent. Vous devriez en créer ou en charger un !"
 }

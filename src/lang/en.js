@@ -20,7 +20,7 @@ export default {
   createNewCalendar: "Create new calendar",
   participants: "Participants",
   load: "Load",
-  loadCalendar: "Load Calendar",
+  myCalendars: "My Calendars",
   clickOnYourName: "Click on your name",
   copyToClipboard: "Copied to clipboard",
   calendarID: "Calendar ID",
@@ -30,5 +30,7 @@ export default {
   add: "Add",
   newParticipantName: "New Participant Name",
   newCalendarName:"New Calendar Name",
-  invalidID: "ID is invalid"
+  invalidID: "ID is invalid",
+  invalidCalendarDeleteMessage: "This calendar is not valid anymore.",
+  emptyCalendarsText: "You don't seemto have any previous calendars. You should create or load one !"
 }

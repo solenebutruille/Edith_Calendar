@@ -1,7 +1,7 @@
 self.addEventListener('install', event => {
-  event.waitUntil(
+  // event.waitUntil(
     //do something when website is installed
-  );
+  // );
 });
 
 self.addEventListener('fetch', event => {
