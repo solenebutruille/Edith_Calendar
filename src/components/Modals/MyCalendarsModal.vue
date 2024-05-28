@@ -3,6 +3,17 @@
       <v-card>
         <v-toolbar color="indigo" dark>
           <v-toolbar-title>{{ $root.currentMessages.myCalendars }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="mx-2"
+            fab
+            small
+            dark
+            color="indigo"
+            @click.stop="showImportCalendarModal = true"
+          >
+            <v-icon dark> mdi-import </v-icon>
+          </v-btn>
         </v-toolbar>
         <v-list>
           <v-list-item-group color="primary" @change="changeCalendar($event)">
@@ -27,19 +38,30 @@
           <v-btn text color="primary" @click="show = false" v-if="!isPersistent()">
             {{ $root.currentMessages.close }}
           </v-btn>
+          <v-btn text color="primary" @click="showCreateCalendarModal = true" v-if="items.length === 0">
+            {{ $root.currentMessages.createNewCalendar }}
+          </v-btn>
         </v-card-actions>
       </v-card>
       <v-snackbar v-model="showSnackBar" timeout="3000" bottom>
         {{ $root.currentMessages.invalidCalendarDeleteMessage }}
       </v-snackbar>
+      <ImportCalendarModal v-model="showImportCalendarModal" />
+      <CreateCalendarModal v-model="showCreateCalendarModal" />
   </v-dialog>
 </template>
 <script>
   import { isCalendarIdValid, getIdCalendar } from "@/models/calendar.js";
   import { executeActionIndexedDB, ActionEnum } from "@/models/indexedDB.js";
   import { eventBus } from "@/main.js";
+  import ImportCalendarModal from '@/components/Modals/ImportCalendarModal';
+  import CreateCalendarModal from '@/components/Modals/CreateCalendarModal';
 
   export default {
+    components: {
+      ImportCalendarModal,
+      CreateCalendarModal
+    },
     props: {
       value: Boolean,
     },
@@ -60,7 +82,9 @@
     data() {
       return {
         items: [],
-        showSnackBar: false
+        showSnackBar: false,
+        showImportCalendarModal: false,
+        showCreateCalendarModal: false
       }
     },
     methods: {

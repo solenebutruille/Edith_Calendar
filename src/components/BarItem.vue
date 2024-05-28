@@ -30,7 +30,6 @@
   import ContactModal from '@/components/Modals/ContactModal';
   import ShareCalendarModal from '@/components/Modals/ShareCalendarModal';
   import { getIdCalendar } from "@/models/calendar.js";
-  import { executeActionIndexedDB, ActionEnum } from "@/models/indexedDB.js";
   import { eventBus } from "@/main.js";
 
   export default {
@@ -42,9 +41,7 @@
     },
     async mounted() {
       if(!getIdCalendar()){
-          let count = await executeActionIndexedDB(ActionEnum.COUNT, "");
-          if(count === 0) this.showCreateCalendarModal = true;
-          else this.showMyCalendarsModal = true;
+          this.showMyCalendarsModal = true;
       }
     },
     created(){

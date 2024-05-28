@@ -23,7 +23,7 @@ export default {
   myCalendars: "Mes calendriers",
   clickOnYourName: "Click sur ton prénom",
   copytToClipboard: "Copié dans le presse papier",
-  calendarID: "ID du calendrier",
+  calendarID: "Coller le lien du calendrier ici",
   calendarURL: "URL du calendrier",
   shareCalendar: "Partager",
   newParticipant: "Nouveau Participant",
@@ -32,5 +32,7 @@ export default {
   newCalendarName:"Nom du nouveau calendrier",
   invalidID: "l'ID est invalide",
   invalidCalendarDeleteMessage: "Ce calendrier n'est plus valide.",
-    emptyCalendarsText: "Vous ne semblez pas avoir de calendrier précédent. Vous devriez en créer ou en charger un !"
+  emptyCalendarsText: "Vous ne semblez pas avoir de calendrier précédent. Vous devriez en créer ou en charger un !",
+  importCalendarText: "Demande à tes amis le lien du calendrier que tu souhaiterais rejoindre. Ensuite copie et colle le lien ci-dessous.",
+  loadCalendar: "Importer un calendrier"
 }

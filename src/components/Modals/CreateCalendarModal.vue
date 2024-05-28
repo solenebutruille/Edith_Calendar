@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="show" width="500" :persistent="isPersistent()">
+  <v-dialog v-model="show" width="500">
     <v-card>
       <v-toolbar color="indigo" dark>
         <v-toolbar-title>{{ $root.currentMessages.createNewCalendar}}</v-toolbar-title>
@@ -32,7 +32,7 @@
       </v-list-item-group>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="primary" text @click="show = false" v-if="!isPersistent()">
+        <v-btn color="primary" text @click="show = false">
           {{ $root.currentMessages.cancel }}
         </v-btn>
         <v-spacer></v-spacer>
@@ -45,8 +45,7 @@
 </template>
 
 <script>
-  import { createCalendar } from "../../models/calendar.js"
-  import { getIdCalendar } from "../../models/calendar.js"
+  import { createCalendar } from "../../models/calendar.js";
 
   const participants = [];
 
@@ -76,9 +75,6 @@
       addParticipant() {
         participants.push(this.newParticipantName);
         this.newParticipantName = "";
-      },
-      isPersistent(){
-        return getIdCalendar() ? false : true;
       }
     }
 }

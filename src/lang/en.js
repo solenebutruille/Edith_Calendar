@@ -23,7 +23,7 @@ export default {
   myCalendars: "My Calendars",
   clickOnYourName: "Click on your name",
   copyToClipboard: "Copied to clipboard",
-  calendarID: "Calendar ID",
+  calendarID: "Paste calendar URL here",
   calendarURL: "Calendar URL",
   shareCalendar: "Share Calendar",
   newParticipant: "New Participant",
@@ -32,5 +32,7 @@ export default {
   newCalendarName:"New Calendar Name",
   invalidID: "ID is invalid",
   invalidCalendarDeleteMessage: "This calendar is not valid anymore.",
-  emptyCalendarsText: "You don't seemto have any previous calendars. You should create or load one !"
+  emptyCalendarsText: "You don't seemto have any previous calendars. You should create or load one !",
+  importCalendarText: "Ask your friends for the link of the calendar you want to join. Then just copy paste the link below.",
+  loadCalendar: "Import calendar"
 }
