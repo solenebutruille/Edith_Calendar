@@ -6,8 +6,11 @@
           <v-toolbar-title>{{ $root.currentMessages.loadCalendar }}</v-toolbar-title>
         </v-toolbar>
         <v-divider></v-divider>
-        <v-text-field :label=$root.currentMessages.calendarID placeholder="4d1jwkALDdj9Y_fRcF" filled :value="calendarIdentifier"
-          class="pt-6 ma-2 mx-lg-auto" @input="calendarIdentifier = $event; isIdValid = true;" :rules="[rules.required, rules.validId]"
+        <v-card-text class="pa-6 text-center">
+          {{ $root.currentMessages.importCalendarText }}
+        </v-card-text>
+        <v-text-field :label=$root.currentMessages.calendarID :placeholder=calendarPlaceholder filled :value="calendarLink"
+          class="pt-6 ma-2 mx-lg-auto" @input="calendarLink = $event; resetValidators();;" :rules="[rules.required, rules.validId, rules.validURL, rules.invalidOrgin, rules.emptyID]"
           centered required></v-text-field>
         <v-divider></v-divider>
         <v-card-actions>
@@ -26,6 +29,13 @@
 <script>
   import { isCalendarIdValid } from "../../models/calendar.js"
 
+  const Validators = {
+      InvalidID: 'InvalidID',
+      InvalidURL: 'InvalidURL',
+      EmptyID: 'EmptyID',
+      InvalidOrgin: 'InvalidOrgin'
+  };
+
   export default {
     props: {
       value: Boolean,
@@ -37,30 +47,76 @@
       }
     },
     data() {
+      const currentOrigineURL = window.location.origin;
+      const calendarPlaceholder = `${currentOrigineURL}/?idCalendar=4d1jwkALDdj9Y_fRcF`;
       return {
         valid: true,
-        calendarIdentifier: "",
-        isIdValid: true,
+        calendarLink: "",
+        invalidID: false,
+        invalidURL: false,
+        invalidOrgin: false,
+        emptyID: false,
+        calendarPlaceholder: calendarPlaceholder,
         rules: {
             required: value => !!value || 'Item is required',
-            validId: () => this.isIdValid || 'ID is invalid',
+            validId: () => !this.invalidID || 'ID is invalid',
+            validURL: () => !this.invalidURL ||  'URL is invalid',
+            invalidOrgin: () => !this.invalidOrgin || 'The URL must be from the application',
+            emptyID: () => !this.emptyID ||  "The calendar ID can't be empty",
         }
       }
     },
     methods: {
       async loadCalendar() {
-        if(!this.calendarIdentifier){
+        if(!this.calendarLink){
           this.$refs.form.validate();
           return;
         }
-        const currentOrigineURL = window.location.origin;
-        const url = `${currentOrigineURL}/?idCalendar=${this.calendarIdentifier}`;
-        if(await isCalendarIdValid(this.calendarIdentifier)){
-          window.location.href = url;
-        } else {
-          this.isIdValid = false;
-          this.$refs.form.validate();
+        let parsedURL;
+        try {
+          parsedURL = new URL(this.calendarLink);
+        } catch (_) {
+          this.setValidatorTrue(Validators.InvalidURL);
+          return;
         }
+        if(!(parsedURL.origin === window.location.origin)){
+          this.setValidatorTrue(Validators.InvalidOrgin);
+          return;
+        }
+        const urlParams = new URLSearchParams(parsedURL.search);
+        let idCalendar = urlParams.get('idCalendar');
+        if(!idCalendar){
+          this.setValidatorTrue(Validators.EmptyID);
+          return;
+        }
+        if(await isCalendarIdValid(idCalendar)){
+          window.location.href = this.calendarLink;
+        } else {
+          this.setValidatorTrue(Validators.InvalidID);
+        }
+      },
+      setValidatorTrue(validator){
+        switch(validator) {
+          case Validators.InvalidID:
+            this.invalidID = true;
+            break;
+          case Validators.InvalidURL:
+            this.invalidURL = true;
+            break;
+          case Validators.EmptyID:
+            this.emptyID = true;
+            break;
+          case Validators.InvalidOrgin:
+            this.invalidOrgin = true;
+            break;
+        }
+        this.$refs.form.validate();
+      },
+      resetValidators(){
+        this.invalidID = false;
+        this.invalidURL = false;
+        this.invalidOrgin = false;
+        this.emptyID = false;
       }
     }
   }

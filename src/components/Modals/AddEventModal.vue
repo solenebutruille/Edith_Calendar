@@ -10,7 +10,7 @@
             :label=$root.currentMessages.title
             :value="field.title"
             class="pt-6 ma-2 mx-lg-auto"
-            @input="updateTheVariable($event)"
+            @input="updateVariable($event)"
             :rules="[v => !!v || $root.currentMessages.itemIsRequired]"
             style="padding-left: 5px;"
             centered
@@ -94,13 +94,10 @@
 </template>
 
 <script>
-  import { db } from "../../main.js";
-  import { doc, setDoc, Timestamp, updateDoc, deleteField } from "firebase/firestore";
-  import { loadEvents } from "../../models/events.js";
+  import { Timestamp } from "firebase/firestore";
   import { getSelectedParticipant } from "../../models/participants.js";
-  import { getIdCalendar } from "../../models/calendar.js"
+  import { createEvent, removeEvent, updateEvent } from "../../models/events.js"
 
-  const idCalendar = getIdCalendar();
 
   export default {
     props:  {
@@ -134,35 +131,27 @@
           startDate: Timestamp.fromDate(new Date(this.field.dates[0])),
           endDate: this.field.dates[1] ? Timestamp.fromDate(new Date(this.field.dates[1])) : null,
         };
-
-        await setDoc(doc(db, idCalendar, participant), eventData, { merge: true });
-        loadEvents();
+        createEvent(participant, eventData);
         this.show = false;
       },
       async removeEvent(){
           const participant = getSelectedParticipant().title;
-          const participantRef = doc(db, idCalendar, participant);
-          var removeData = {};
-          removeData[this.field.id] = deleteField();
-          await updateDoc(participantRef, removeData);
-          loadEvents();
+          removeEvent(participant, this.field.id);
           this.show = false;
       },
       async updateEvent(){
         const participant = getSelectedParticipant().title;
-        const participantRef = doc(db, idCalendar, participant);
         var updateData = {};
         updateData[this.field.id] = {
           title: this.field.title,
           startDate: Timestamp.fromDate(new Date(this.field.dates[0])),
           endDate: this.field.dates[1] ? Timestamp.fromDate(new Date(this.field.dates[1])) : null,
         };
-        await updateDoc(participantRef, updateData);
-        loadEvents();
+        updateEvent(participant, updateData);
         this.show = false;
       },
-      updateTheVariable(value){
-         this.field.title = value;
+      updateVariable(value){
+        this.field.title = value;
       },
       onChangeDate(){
         this.field.dates.sort();

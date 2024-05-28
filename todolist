@@ -4,7 +4,6 @@
 - MP mettre les heures
 
 New priorities :
-- mettre les criteres PWA +  icons et tout
 - redo where I write the data to write it differently and do the firebase rules
 - ecrire tous les tests + code quality (mettre le code du add event dans le calendrier + rename icalendar en id et l'avoir a un seul endroit pareil pour infocalendar)
 - enlever toutes les tailles harcode (600 du calendrier 599 de l'autre)
