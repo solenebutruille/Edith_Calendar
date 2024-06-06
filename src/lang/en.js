@@ -32,7 +32,11 @@ export default {
   newCalendarName:"New Calendar Name",
   invalidID: "ID is invalid",
   invalidCalendarDeleteMessage: "This calendar is not valid anymore.",
-  emptyCalendarsText: "You don't seemto have any previous calendars. You should create or load one !",
+  emptyCalendarsText: "You don't seem to have any previous calendars. You should create or load one !",
   importCalendarText: "Ask your friends for the link of the calendar you want to join. Then just copy paste the link below.",
-  loadCalendar: "Import calendar"
+  loadCalendar: "Import calendar",
+  atLeastOneParticipant: "At least one participant needs to be added.",
+  invalidURL: "URL is invalid",
+  urlMustBeFromApp: "The URL must be from the application",
+  calendarIDNotEmpty: "The calendar ID can't be empty"
 }

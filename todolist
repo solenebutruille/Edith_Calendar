@@ -5,5 +5,9 @@
 
 New priorities :
 - redo where I write the data to write it differently and do the firebase rules
-- ecrire tous les tests + code quality (mettre le code du add event dans le calendrier + rename icalendar en id et l'avoir a un seul endroit pareil pour infocalendar)
+- ecrire tous les tests + code quality (rename icalendar en id et l'avoir a un seul endroit)
 - enlever toutes les tailles harcode (600 du calendrier 599 de l'autre)
+- ajouter 3 mois visibles
+- sur edit event enlever le bouton edit quand c'est pas la bonne personne
+- bug sur le time picker qui s'ouvre sur lq derniere dqte
+- ajouter les heures
