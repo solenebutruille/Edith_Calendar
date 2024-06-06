@@ -58,11 +58,11 @@
         emptyID: false,
         calendarPlaceholder: calendarPlaceholder,
         rules: {
-            required: value => !!value || 'Item is required',
-            validId: () => !this.invalidID || 'ID is invalid',
-            validURL: () => !this.invalidURL ||  'URL is invalid',
-            invalidOrgin: () => !this.invalidOrgin || 'The URL must be from the application',
-            emptyID: () => !this.emptyID ||  "The calendar ID can't be empty",
+            required: value => !!value || this.$root.currentMessages.itemIsRequired,
+            validId: () => !this.invalidID || this.$root.currentMessages.invalidID,
+            validURL: () => !this.invalidURL ||  this.$root.currentMessages.invalidURL,
+            invalidOrgin: () => !this.invalidOrgin || this.$root.currentMessages.urlMustBeFromApp,
+            emptyID: () => !this.emptyID ||  this.$root.currentMessages.calendarIDNotEmpty,
         }
       }
     },

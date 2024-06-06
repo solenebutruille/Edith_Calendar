@@ -104,8 +104,6 @@
         event.stopPropagation();
         await executeActionIndexedDB(ActionEnum.DELETE, calendarToDelete);
         this.items = await executeActionIndexedDB(ActionEnum.GET_ALL, "");
-        let calendarsLeft = await executeActionIndexedDB(ActionEnum.COUNT, "");
-        if(!getIdCalendar() && calendarsLeft === 0) eventBus.$emit('no-previous-calendars-on-homepage');
       },
       isPersistent(){
         return getIdCalendar() ? false : true;

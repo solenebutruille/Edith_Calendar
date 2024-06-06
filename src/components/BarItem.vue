@@ -30,7 +30,6 @@
   import ContactModal from '@/components/Modals/ContactModal';
   import ShareCalendarModal from '@/components/Modals/ShareCalendarModal';
   import { getIdCalendar } from "@/models/calendar.js";
-  import { eventBus } from "@/main.js";
 
   export default {
     components: {
@@ -43,12 +42,6 @@
       if(!getIdCalendar()){
           this.showMyCalendarsModal = true;
       }
-    },
-    created(){
-      eventBus.$on('no-previous-calendars-on-homepage', () => {
-        this.showCreateCalendarModal = true;
-        this.showMyCalendarsModal = false;
-      });
     },
     data: () => ({
       showCreateCalendarModal: false,

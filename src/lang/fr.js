@@ -34,5 +34,9 @@ export default {
   invalidCalendarDeleteMessage: "Ce calendrier n'est plus valide.",
   emptyCalendarsText: "Vous ne semblez pas avoir de calendrier précédent. Vous devriez en créer ou en charger un !",
   importCalendarText: "Demande à tes amis le lien du calendrier que tu souhaiterais rejoindre. Ensuite copie et colle le lien ci-dessous.",
-  loadCalendar: "Importer un calendrier"
+  loadCalendar: "Importer un calendrier",
+  atLeastOneParticipant: "Il faut ajouter au moins un participant.",
+  invalidURL: "L'URL est invalide",
+  urlMustBeFromApp: "L'URL doit venir de l'application",
+  calendarIDNotEmpty: "L'id du calendrier ne peut pas être vide."
 }
