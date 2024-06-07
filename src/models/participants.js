@@ -1,9 +1,8 @@
-import { db, colors, rnd, eventBus } from "@/main.js";
-import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { colors, rnd, eventBus } from "@/main.js";
+import { getDocs, setDoc, deleteDoc } from "firebase/firestore";
 import { loadEvents } from "../models/events.js";
-import { getIdCalendar } from "./calendar.js";
+import { getParticipantDoc, getParticipantsCollection, getIdCalendar } from "./calendar.js"
 
-const idCalendar = getIdCalendar();
 const participants = [];
 export var selectedParticipantIndex = undefined;
 
@@ -26,7 +25,8 @@ export function getParticipants(){
 }
 
 export async function addParticipant(name){
-  await setDoc(doc(collection(db, idCalendar), name), {
+  const participantRef = getParticipantDoc(name);
+  await setDoc(participantRef, {
     name: name,
   });
   await loadParticipants();
@@ -35,16 +35,18 @@ export async function addParticipant(name){
 }
 
 export async function deleteParticipant(participant){
-  await deleteDoc(doc(collection(db, idCalendar), participant));
+  const participantRef = getParticipantDoc(participant);
+  await deleteDoc(participantRef);
   loadEvents();
   loadParticipants();
 }
 
 export async function loadParticipants(){
-  if(!idCalendar) return;
+  if(!getIdCalendar()) return;
   participants.splice(0, participants.length);
   var colorsParticipants = colors.slice();
-  const querySnapshot = await getDocs(collection(db, idCalendar));
+  const participantCollection = getParticipantsCollection();
+  const querySnapshot = await getDocs(participantCollection);
   querySnapshot.forEach((item) => {
     if(colorsParticipants.length == 0) colorsParticipants = colors.slice();
     if(item.id !== "calendarInfo"){

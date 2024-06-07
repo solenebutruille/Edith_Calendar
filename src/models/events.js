@@ -1,22 +1,21 @@
-import { getDocs, collection, setDoc, doc, updateDoc, deleteField } from "firebase/firestore";
-import { db } from "../main.js";
+import { getDocs, setDoc, updateDoc, deleteField } from "firebase/firestore";
 import { getParticipants } from './participants.js'
-import { getIdCalendar } from "./calendar.js"
+import { getParticipantDoc, getParticipantsCollection, getIdCalendar } from "./calendar.js"
 
 const events = [];
-const idCalendar = getIdCalendar();
 
 export function getEvents() {
    return events;
 }
 
 export async function createEvent(participant, eventData){
-  await setDoc(doc(db, idCalendar, participant), eventData, { merge: true});
+  const participantRef = getParticipantDoc(participant);
+  await setDoc(participantRef, eventData, { merge: true});
   loadEvents();
 }
 
 export async function removeEvent(participant, fieldId){
-  const participantRef = doc(db, idCalendar, participant);
+  const participantRef = getParticipantDoc(participant);
   var removeData = {};
   removeData[fieldId] =  deleteField();
   await updateDoc(participantRef, removeData);
@@ -24,15 +23,17 @@ export async function removeEvent(participant, fieldId){
 }
 
 export async function updateEvent(participant, updateData){
-  const participantRef = doc(db, idCalendar, participant);
+  const participantRef = getParticipantDoc(participant);
   await updateDoc(participantRef, updateData);
   loadEvents();
 }
 
 export async function loadEvents () {
-  if(!idCalendar) return;
+  if(!getIdCalendar()) return;
   resetEvents();
-  const querySnapshot = await getDocs(collection(db, idCalendar));
+
+  const participantCollection = getParticipantsCollection();
+  const querySnapshot = await getDocs(participantCollection);
 
   querySnapshot.forEach((doc) => {
     const data = doc.data();
