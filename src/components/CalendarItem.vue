@@ -67,6 +67,8 @@
             participant: "",
             startDate: new Date(),
             endDate: null,
+            disableEdit: false,
+            currentParticipant: ""
           },
           modalWrongParticipant: {
             errorMessage: "",
@@ -110,6 +112,7 @@
       addEvent({ date }){
         var selectedParticipant = getSelectedParticipant();
         if ( ! this.verifyParticipant(null, selectedParticipant, true)) return;
+        this.modalData.disableEdit = false;
         this.modalData.dates = [date];
         this.modalData.startDate = date;
         this.modalData.endDate = null;
@@ -120,8 +123,7 @@
         this.showModalEvent = true;
       },
       showEvent ({ event }) {
-        if ( ! this.verifyParticipant(event.participant, getSelectedParticipant(), false))
-          return;
+        this.modalData.disableEdit = ! this.verifyParticipant(event.participant, getSelectedParticipant(), false);
         const isoStartDate = event.start.toISOString();
         const isoEndDate = event.end.toISOString();
         this.modalData.dates = [isoStartDate.substring(0, isoStartDate.indexOf("T")),isoEndDate.substring(0, isoEndDate.indexOf("T"))];
@@ -131,6 +133,7 @@
         this.showModalEvent = true;
         this.modalData.color = event.color;
         this.modalData.participant = event.participant;
+        this.modalData.currentParticipant = getSelectedParticipant().title;
       },
       verifyParticipant(targetParticipant, currentParticipant, addition){
         if(addition){
@@ -141,11 +144,8 @@
           }
           else return true;
         }
-        if (!targetParticipant || !currentParticipant || targetParticipant.title !== currentParticipant.title) {
-          this.modalWrongParticipant.errorMessage = "To edit the event, " + targetParticipant.title + " must be selected.";
-          this.showModalWrongParticipant = true;
-          return false;
-        } else return true;
+        return (!targetParticipant || !currentParticipant || targetParticipant.title !== currentParticipant.title) ?
+          false : true;
       }
     },
   }
