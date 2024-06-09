@@ -15,6 +15,7 @@
             style="padding-left: 5px;"
             centered
             required
+            :disabled="field.disableEdit"
           ></v-text-field>
           <v-row class="pt-6 ma-2 mx-lg-auto">
             <v-menu v-model="menu" :close-on-content-click="false">
@@ -28,6 +29,7 @@
                   v-on="on"
                   :rules="[v => !!v || $root.currentMessages.itemIsRequired]"
                   required
+                  :disabled="field.disableEdit"
                 ></v-text-field>
                 <v-text-field
                   v-model="field.dates[1]"
@@ -38,6 +40,7 @@
                   v-on="on"
                   :rules="[v => !!v || $root.currentMessages.itemIsRequired]"
                   required
+                  :disabled="field.disableEdit"
                 ></v-text-field>
               </template>
               <v-date-picker
@@ -74,18 +77,20 @@
             depressed
             color="primary"
             @click="updateEvent"
-            v-if="!field.newEvent"
-            :disabled="!valid"
+            v-if="!field.newEvent && !field.disableEdit"
           >
             {{ $root.currentMessages.update }}
           </v-btn>
           <v-btn
             color="error"
             @click="removeEvent"
-            v-if="!field.newEvent"
+            v-if="!field.newEvent && !field.disableEdit"
           >
             {{ $root.currentMessages.delete }}
           </v-btn>
+          <v-card-text class="pa-6 text-center" v-if="!field.newEvent && field.disableEdit">
+            {{ field.participant.title }} {{ $root.currentMessages.wrongUserSelected }} {{ field.currentParticipant }}.
+          </v-card-text>
         </v-card-actions>
       </v-card>
       </v-form>

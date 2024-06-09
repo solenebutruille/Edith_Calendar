@@ -56,8 +56,8 @@
       async shareCalendar(){
         if(navigator.share){
           const shareData = {
-            title: "My calendar",
-            text: "Share my calendar",
+            title: "Edith Calendar",
+            text: this.$root.currentMessages.shareCalendarText,
             url: window.location.href,
           };
           await navigator.share(shareData);

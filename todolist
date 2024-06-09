@@ -1,13 +1,17 @@
 - LP faire de l'ecoute active pour faire apparaitre direct chez les gens si la bdd change
 - LP faire le hors-ligne
-- LP faire les notifs
-- MP mettre les heures
 
 New priorities :
-- redo where I write the data to write it differently and do the firebase rules
-- ecrire tous les tests + code quality (rename idcalendar en id et l'avoir a un seul endroit)
+- changer le logo
+- changer le projet firebase
+- payer pour la subscription
+- modifier la page de contact
+- payer pour le nom de domain
+
+- ecrire les tests
 - enlever toutes les tailles harcode (600 du calendrier 599 de l'autre)
 - ajouter 3 mois visibles
-- sur edit event enlever le bouton edit quand c'est pas la bonne personne
+- research/write firebase rules
 - bug sur le time picker qui s'ouvre sur lq derniere dqte
 - ajouter les heures
+- ajouter les notifs

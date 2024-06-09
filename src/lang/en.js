@@ -38,5 +38,7 @@ export default {
   atLeastOneParticipant: "At least one participant needs to be added.",
   invalidURL: "URL is invalid",
   urlMustBeFromApp: "The URL must be from the application",
-  calendarIDNotEmpty: "The calendar ID can't be empty"
+  calendarIDNotEmpty: "The calendar ID can't be empty",
+  shareCalendarText: "Join me on my shared calendar !",
+  wrongUserSelected: " must be selected to edit this event but it is currently "
 }

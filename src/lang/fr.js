@@ -38,5 +38,7 @@ export default {
   atLeastOneParticipant: "Il faut ajouter au moins un participant.",
   invalidURL: "L'URL est invalide",
   urlMustBeFromApp: "L'URL doit venir de l'application",
-  calendarIDNotEmpty: "L'id du calendrier ne peut pas être vide."
+  calendarIDNotEmpty: "L'id du calendrier ne peut pas être vide.",
+  shareCalendarText: "Rejoins moi sur mon calendrier collaboratif !",
+  wrongUserSelected: " doit être selectionné.e pour mettre cet évènement à jour mais c'est actuellement "
 }
